@@ -1,14 +1,20 @@
-const createProject = (name) =>{
+const createProject = (name) => {
     let tasks = [];
 
-    const addTask = (task) =>{
-        tasks.push(task);
+    const addTask = (newTask) => {
+        if (tasks.some(task => task.name === newTask.name)) return
+        tasks.push(newTask);
     }
 
-    return{
+    const deleteTask = (taskName) => {
+        tasks = tasks.filter(task => task.name !== taskName);
+    }
+
+    return {
         name,
         tasks,
-        addTask
+        addTask,
+        deleteTask
     }
 }
 

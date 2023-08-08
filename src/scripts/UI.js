@@ -48,7 +48,7 @@ function createHeader() {
     header.appendChild(btn);
 
 
-    //date usage tests
+    //date usage tests borrar despues
     btn.addEventListener('click', () => {
         const selectedDate = adjustTimezone(date.value);
         alo1.push(createTask('alo', 'sapito', selectedDate, true, false));
@@ -77,6 +77,7 @@ function createHeader() {
         projects.push(createProject(pName));
         console.log(projects);
     });
+
     const projectNameSearch = document.createElement('input');
     projectNameSearch.type = 'text';
     header.appendChild(projectNameSearch);
@@ -87,14 +88,19 @@ function createHeader() {
 
     btn2.addEventListener('click', () => {
         const searchName = projectNameSearch.value;
-        const a = projects.filter(function(project) {
-            if(project.name === searchName){
-                project.addTask(alo1);
-                return true;
-            }
-        });
-        console.log(searchName);
-        console.log(a);
+        // const a = projects.find(function(project) {
+        //     if(project.name === searchName){
+        //         project.addTask(alo1);
+        //         return true;
+        //     }
+        // });
+
+        const b = projects.find(project => (project.name === searchName));
+        b.addTask(alo1);
+        // console.log(searchName);
+        // console.log(a);
+        console.log(b);
+        console.log(alo1[0].name)
         
     });
 };
