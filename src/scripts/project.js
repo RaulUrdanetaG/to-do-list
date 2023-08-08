@@ -1,21 +1,44 @@
-const createProject = (name) => {
-    let tasks = [];
 
-    const addTask = (newTask) => {
-        if (tasks.some(task => task.name === newTask.name)) return
-        tasks.push(newTask);
+export class Project {
+    constructor(name) {
+        this.name = name;
+        this.tasks = [];
     }
 
-    const deleteTask = (taskName) => {
-        tasks = tasks.filter(task => task.name !== taskName);
+    setName(newName) {
+        this.name = newName;
     }
 
-    return {
-        name,
-        tasks,
-        addTask,
-        deleteTask
+    getName() {
+        return this.name;
+    }
+
+    getTask(taskName) {
+        return this.tasks.find(task => task.name === taskName);
+    }
+
+    setTasks(storageTasks) {
+        this.tasks = storageTasks;
+    }
+
+    getTasks() {
+        return this.tasks;
+    }
+
+    addTask(newTask) {
+        if (this.tasks.some(task => task.name === newTask.name)) return
+        this.tasks.push(newTask);
+    };
+
+    removeTask(taskName) {
+        this.tasks = this.tasks.filter(task => task.name !== taskName);
+    }
+
+    toogleCompleteTask(taskName) {
+        this.tasks.find(task => task.name === taskName).completed = !this.tasks.find(task => task.name === taskName).completed;
+    }
+
+    toogleImportantTask(taskName) {
+        this.tasks.find(task => task.name === taskName).important = !this.tasks.find(task => task.name === taskName).important;
     }
 }
-
-export default createProject;

@@ -1,20 +1,27 @@
-import createProject from "./project";
 
-const createToDoList = () => {
-    let projects = [];
-
-    const addProject = (newProject) => {
-        if (projects.some(project => project.name === newProject.name)) return
-        projects.push(newProject);
+export class ToDoList {
+    constructor() {
+        this.projects = [];
     }
 
-    const removeProject = (projectName) =>{
-        projects = projects.filter(project => project.name !== projectName);
+    setProjects = (storageProjects) => {
+        this.projects = storageProjects;
     }
 
-    return {
-        projects,
-        addProject,
-        removeProject
+    getProject = (projectName) => {
+        return this.projects.find(project => project.name === projectName);
+    }
+
+    getProjects = () => {
+        return this.projects;
+    }
+
+    addProject = (newProject) => {
+        if (this.projects.some(project => project.name === newProject.name)) return
+        this.projects.push(newProject);
+    }
+
+    removeProject = (projectName) => {
+        this.projects = this.projects.filter(project => project.name !== projectName);
     }
 }
