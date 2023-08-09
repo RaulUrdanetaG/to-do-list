@@ -1,0 +1,65 @@
+@import 'colors';
+@import 'fonts';
+
+
+#side-bar {
+    display: flex;
+    flex-direction: column;
+
+    .add-project-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        height: 30px;
+
+        img {
+            width: 20px;
+            filter: $svg-icon-color;
+        }
+
+        margin: 10px 5px;
+        border-radius: 10px;
+        background-color: $primary-color;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.9;
+        }
+    }
+
+    #new-project-form {
+
+        .new-form {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            img {
+                width: 30px;
+                filter: $svg-icon-color;
+            }
+
+            input {
+                display: flex;
+                flex: 1;
+                font-size: 16px;
+            }
+
+            margin: 5px 0;
+        }
+
+        .new-form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        margin: 10px;
+    }
+
+    min-width: 268px;
+    border: 2px solid $primary-color;
+    margin-top: 10px;
+    border-radius: 15px;
+}

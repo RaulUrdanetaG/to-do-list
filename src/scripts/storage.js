@@ -2,7 +2,7 @@ import { Task } from "./task";
 import { Project } from "./project";
 import { ToDoList } from "./toDoList";
 
-export class Storage {
+export default class Storage {
 
     static saveLocal(toDoList) {
         localStorage.setItem('to-do-list', JSON.stringify(toDoList));

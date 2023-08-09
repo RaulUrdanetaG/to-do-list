@@ -1,0 +1,50 @@
+@import 'colors';
+@import 'fonts';
+@import 'header';
+@import 'footer';
+@import 'sideBar';
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $secondary-color;
+
+    #content{
+        display: grid;
+        height: 100%;
+        grid-template-rows: 112px 1fr 40px;
+        grid-template-columns: 1fr 4fr;
+        padding: 0 10px;
+    }
+}
+
+.add-button{
+    background-color: $check-color;
+    border: none;
+    border-radius: 5px;
+    color: $font-color;
+    padding: 5px 10px;
+
+    &:hover{
+        cursor: pointer;
+        opacity: 0.9;
+    }
+}
+
+.cancel-button{
+    background-color: $cancel-color;
+    border: none;
+    border-radius: 5px;
+    color: $font-color;
+    padding: 5px 10px;
+
+    &:hover{
+        cursor: pointer;
+        opacity: 0.9;
+    }
+}
+
+.hidden{
+    display: none;
+}
