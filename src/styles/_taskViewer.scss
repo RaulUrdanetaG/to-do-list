@@ -1,0 +1,78 @@
+@import 'colors';
+@import 'fonts';
+
+.task-view-container {
+    display: grid;
+    grid-template-rows: 50px 1fr;
+
+    .task-view-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h4 {
+            margin-left: 10px;
+        }
+
+        div {
+            margin-right: 10px;
+        }
+
+        background-color: $primary-color;
+        border-radius: 10px;
+        color: $font-color;
+    }
+
+    #tasks-container {
+
+        .add-task-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            img {
+                width: 20px;
+                filter: $svg-icon-color;
+            }
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.9;
+            }
+
+            max-width: 200px;
+            padding: 5px;
+            margin-top: 10px;
+            border-radius: 10px;
+            background-color: $primary-color;
+        }
+
+        .new-form {
+            display: flex;
+            flex-direction: column;
+
+            #new-task-desc{
+                height: 80px;
+                resize: none;
+            }
+
+            label {
+                margin-top: 5px;
+            }
+        }
+
+        .new-form-buttons{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+    }
+
+    padding: 10px;
+    margin: 10px 0 0 10px;
+    border: 2px solid $primary-color;
+    border-radius: 15px;
+}

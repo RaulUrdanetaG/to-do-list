@@ -1,7 +1,12 @@
+import { Project } from "./project";
 
 export class ToDoList {
     constructor() {
         this.projects = [];
+        this.projects.push(new Project('All Tasks'));
+        this.projects.push(new Project('Today'));
+        this.projects.push(new Project('Next 7 Days'));
+        this.projects.push(new Project('Important'));
     }
 
     setProjects = (storageProjects) => {

@@ -61,21 +61,70 @@ function createFooter() {
     footer.appendChild(websiteInfo);
 }
 
-function sideBar(){
+function sideBar() {
     const content = document.getElementById('content');
 
     const sideBarContainer = document.createElement('section');
     sideBarContainer.id = 'side-bar';
     content.appendChild(sideBarContainer);
-    
+
     const projectFormContainer = document.createElement('div');
-    projectFormContainer.id ='new-project-form';
+    projectFormContainer.id = 'new-project-form';
     projectFormContainer.classList.add('hidden');
-    projectFormContainer.innerHTML = `<div class = 'new-form'><img src ='${menuOutlineSvg}'>
-                                     <input type = 'text' id = 'new-project-name' placeholder = 'Enter your project name' autocomplete = 'off'></input></div>
-                                     <div class = 'new-form-buttons'><button class = 'add-button' id = 'add-new-project'>Add</button>
-                                     <button class = 'cancel-button' id = 'cancel-new-project'>Cancel</button></div>`;
+    projectFormContainer.innerHTML = `<div class = 'new-form'>
+                                        <img src ='${menuOutlineSvg}'>
+                                        <input type = 'text' id = 'new-project-name' placeholder = 'Enter your project name' autocomplete = 'off'>
+                                      </div>
+                                      <div class = 'new-form-buttons'>
+                                        <button class = 'add-button' id = 'add-new-project'>Add</button>
+                                        <button class = 'cancel-button' id = 'cancel-new-project'>Cancel</button>
+                                      </div>`;
     sideBarContainer.appendChild(projectFormContainer);
+
+    addProjectBtn();
+
+}
+
+function taskBar() {
+    const content = document.getElementById('content');
+
+    const taskViewer = document.createElement('section');
+    taskViewer.classList.add('task-view-container');
+    content.appendChild(taskViewer);
+
+    const taskViewerTitle = document.createElement('div');
+    taskViewerTitle.classList.add('task-view-title');
+    taskViewerTitle.innerHTML = `<h4>Title</h4>
+                                <div>
+                                    <p>Nearest due date:</p>
+                                    <p>date</p>
+                                </div>`
+    taskViewer.appendChild(taskViewerTitle);
+
+    const tasksContainer = document.createElement('div');
+    tasksContainer.id = 'tasks-container';
+    taskViewer.appendChild(tasksContainer);
+
+    const taskFormContainer = document.createElement('div');
+    taskFormContainer.id = 'new-task-form';
+    // taskFormContainer.classList.add('hidden');
+    taskFormContainer.innerHTML = `<div class = 'new-form'>
+                                        <label for='new-task-name'>Title:</label>
+                                        <input type = 'text' id = 'new-task-name' placeholder = 'Enter your task name' autocomplete = 'off'>
+                                        <label for='new-task-desc'>Description (optional):</label>
+                                        <textarea type = 'text' id = 'new-task-desc' placeholder = 'Enter a description for your task' autocomplete = 'off' wrap="hard"></textarea>
+                                        <label for='task-date'>Due date:</label>
+                                        <input type = 'date' id = 'task-date'>
+                                   </div>
+                                   <div class = 'new-form-buttons'><button class = 'add-button' id = 'add-new-task'>Add</button>
+                                   <button class = 'cancel-button' id = 'cancel-new-task'>Cancel</button></div>`;
+    tasksContainer.appendChild(taskFormContainer);
+
+    addTaskBtn();
+}
+
+function addProjectBtn() {
+    const sideBarContainer = document.getElementById('side-bar');
 
     const addProjectContainer = document.createElement('div');
     addProjectContainer.classList.add('add-project-container');
@@ -84,25 +133,58 @@ function sideBar(){
 
     const cancelNewProjectBtn = document.getElementById('cancel-new-project');
 
-    addProjectContainer.onclick = () =>{showNewProjectForm()};
-    cancelNewProjectBtn.onclick = () =>{hideNewProjectForm()};
+    addProjectContainer.onclick = () => { showNewProjectForm() };
+    cancelNewProjectBtn.onclick = () => { hideNewProjectForm() };
 }
 
-function showNewProjectForm(){
+function addTaskBtn() {
+    const tasksContainer = document.getElementById('tasks-container');
+
+    const addTaskContainer = document.createElement('div');
+    addTaskContainer.classList.add('add-task-container');
+    addTaskContainer.innerHTML = `<img src = '${addLogo}'><p>Add Task</p>`;
+    tasksContainer.appendChild(addTaskContainer);
+
+    const cancelNewTaskBtn = document.getElementById('cancel-new-task');
+
+
+    addTaskContainer.onclick = () => { showNewTaskForm() };
+    cancelNewTaskBtn.onclick = () => { hideNewTaskForm() };
+}
+
+function showNewProjectForm() {
     const formContainer = document.getElementById('new-project-form');
     formContainer.classList.remove('hidden');
 }
 
-function hideNewProjectForm(){
-    const formContainer = document.getElementById('new-project-form');
+function hideNewProjectForm() {
+    const projectFormContainer = document.getElementById('new-project-form');
     const input = document.getElementById('new-project-name');
     input.value = '';
-    formContainer.classList.add('hidden');
+    projectFormContainer.classList.add('hidden');
+}
+
+function showNewTaskForm() {
+    const taskFormContainer = document.getElementById('new-task-form');
+    taskFormContainer.classList.remove('hidden');
+}
+
+function hideNewTaskForm() {
+    const taskFormContainer = document.getElementById('new-task-form');
+    const inputName = document.getElementById('new-task-name');
+    const inputDesc = document.getElementById('new-task-desc');
+    const inputDate = document.getElementById('task-date');
+    inputName.value = '';
+    inputDesc.value = '';
+    inputDate.value = '';
+    taskFormContainer.classList.add('hidden');
 }
 
 function loadHome() {
+
     createHeader();
     sideBar();
+    taskBar()
     createFooter();
 };
 
