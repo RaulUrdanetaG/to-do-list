@@ -3,13 +3,44 @@
 
 
 #side-bar {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 60px 208px 60px 1fr 65px 49px;
+
+    .home-title,
+    .projects-title {
+        border-bottom: 2px solid $font-color;
+        margin: 10px 0;
+    }
+
+    #home-projects-container {
+        display: flex;
+        flex-direction: column;
+
+        .home-project {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            img {
+                width: 30px;
+                filter: $svg-icon-color;
+            }
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.7;
+            }
+
+            margin: 10px 0 10px 10px;
+
+        }
+    }
 
     .add-project-container {
         display: flex;
         align-items: center;
         justify-content: center;
+        align-self: end;
         gap: 10px;
         height: 30px;
 
@@ -18,7 +49,7 @@
             filter: $svg-icon-color;
         }
 
-        margin: 10px 5px;
+        margin: 0 0 10px;
         border-radius: 10px;
         background-color: $primary-color;
 
@@ -26,6 +57,48 @@
             cursor: pointer;
             opacity: 0.9;
         }
+        grid-row: 6/7;
+    }
+
+    #projects-container {
+
+        .project {
+            display: flex;
+            justify-content: space-between;
+
+            h6 {
+                margin-left: 10px;
+            }
+
+            img {
+                width: 20px;
+                filter: $svg-icon-color;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            margin-top: 10px;
+            border-radius: 7px;
+        }
+
+
+
+        &::-webkit-scrollbar {
+            background-color: $secondary-color;
+            width: 3px;
+            margin-left: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $transparent-primary-color;
+
+            border-radius: 15px;
+        }
+
+        padding-right: 3px;
+        overflow: auto;
     }
 
     #new-project-form {
@@ -55,11 +128,13 @@
             gap: 10px;
         }
 
-        margin: 10px;
+        margin:0;
     }
 
     min-width: 268px;
+    max-height: 82vh;
     border: 2px solid $primary-color;
     margin-top: 10px;
     border-radius: 15px;
+    padding: 0 5px;
 }
