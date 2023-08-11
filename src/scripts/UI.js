@@ -6,11 +6,9 @@ import allTaskImg from '../assets/folder-open-outline.svg';
 import todayImg from '../assets/today.svg';
 import n7dImg from '../assets/this_week.svg';
 import importantImg from '../assets/star-outline.svg';
-import ellipsisImg from '../assets/ellipsis-vertical-outline.svg';
 
 import { currentDate, formatDate } from './dateManager';
-import Storage from './storage';
-import { Project } from './project';
+import { loadProjects, createHomeProjects, addProjectBtn,  } from './UI_Projects';
 
 function createHeader() {
     const content = document.getElementById('content');
@@ -103,7 +101,6 @@ function sideBar() {
     projectFormContainer.id = 'new-project-form';
     projectFormContainer.classList.add('hidden');
     projectFormContainer.innerHTML = `<div class = 'new-form'>
-                                        <img src ='${menuOutlineSvg}'>
                                         <input type = 'text' id = 'new-project-name' placeholder = 'Enter your project name' autocomplete = 'off'>
                                       </div>
                                       <div class = 'new-form-buttons'>
@@ -153,26 +150,7 @@ function taskBar() {
     addTaskBtn();
 }
 
-function addProjectBtn() {
-    const sideBar = document.getElementById('side-bar');
 
-    const addProjectContainer = document.createElement('div');
-    addProjectContainer.classList.add('add-project-container');
-    addProjectContainer.innerHTML = `<img src = '${addLogo}'><p>Add Project</p>`;
-    sideBar.appendChild(addProjectContainer);
-
-    const addProjectButton = document.getElementById('add-new-project');
-    const cancelNewProjectBtn = document.getElementById('cancel-new-project');
-
-    addProjectContainer.onclick = () => { showNewProjectForm() };
-    addProjectButton.onclick = () => {
-        createProject();
-        hideNewProjectForm();
-        clearShownProjects();
-        loadProjects();
-    };
-    cancelNewProjectBtn.onclick = () => { hideNewProjectForm() };
-}
 
 function addTaskBtn() {
     const tasksContainer = document.getElementById('tasks-container');
@@ -187,18 +165,6 @@ function addTaskBtn() {
 
     addTaskContainer.onclick = () => { showNewTaskForm() };
     cancelNewTaskBtn.onclick = () => { hideNewTaskForm() };
-}
-
-function showNewProjectForm() {
-    const formContainer = document.getElementById('new-project-form');
-    formContainer.classList.remove('hidden');
-}
-
-function hideNewProjectForm() {
-    const projectFormContainer = document.getElementById('new-project-form');
-    const input = document.getElementById('new-project-name');
-    input.value = '';
-    projectFormContainer.classList.add('hidden');
 }
 
 function showNewTaskForm() {
@@ -217,45 +183,9 @@ function hideNewTaskForm() {
     taskFormContainer.classList.add('hidden');
 }
 
-function createHomeProjects(title, img) {
-    const sideBarContainer = document.getElementById('home-projects-container');
 
-    const homeProjectContainer = document.createElement('div');
-    homeProjectContainer.classList.add('home-project');
-    homeProjectContainer.innerHTML = `<img src='${img}'>
-                                        <h6>${title}</h6>`;
-    sideBarContainer.appendChild(homeProjectContainer);
-}
 
-function createProject() {
-    const projectName = document.getElementById('new-project-name');
-    Storage.addProject(new Project(projectName.value));
-}
 
-function showProject(projectName) {
-    const sideBarContainer = document.getElementById('projects-container');
-
-    const projectContainer = document.createElement('div');
-    projectContainer.classList.add('project');
-    projectContainer.innerHTML = `<h6>${projectName}</h6>
-                                  <img src = '${ellipsisImg}'>`;
-    sideBarContainer.appendChild(projectContainer);
-}
-
-function loadProjects() {
-    const toDoList = Storage.getToDoList();
-
-    toDoList.getProjects().forEach(project => {
-        if (project.name !== 'All Tasks' && project.name !== 'Today' && project.name !== 'Next 7 Days' && project.name !== 'Important') {
-            showProject(project.name);
-        }
-    });
-}
-
-function clearShownProjects(){
-    const projectsContainer = document.getElementById('projects-container');
-    projectsContainer.innerHTML = '';
-}
 
 function loadHome() {
     createHeader();

@@ -57,6 +57,7 @@
             cursor: pointer;
             opacity: 0.9;
         }
+
         grid-row: 6/7;
     }
 
@@ -65,6 +66,7 @@
         .project {
             display: flex;
             justify-content: space-between;
+            position: relative;
 
             h6 {
                 margin-left: 10px;
@@ -73,6 +75,51 @@
             img {
                 width: 20px;
                 filter: $svg-icon-color;
+            }
+
+            .options-container {
+                position: absolute;
+                gap: 5px;
+                top: -15px;
+                right: 12px;
+                padding: 5px;
+                border-radius: 5px;
+
+                p {
+                    &:hover {
+                        cursor: pointer;
+                        background-color: $selection-color;
+                        border-radius: 5px;
+                    }
+                }
+
+                background-color: $lighter-secondary-color;
+            }
+
+            .rename-project-form {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .new-form {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+
+                    input {
+                        display: flex;
+                        flex: 1;
+                        font-size: 16px;
+                    }
+
+                    margin: 5px 0;
+                }
+
+                .new-form-buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                }
             }
 
             &:hover {
@@ -97,6 +144,7 @@
             border-radius: 15px;
         }
 
+        max-height: 30vh;
         padding-right: 3px;
         overflow: auto;
     }
@@ -107,11 +155,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-
-            img {
-                width: 30px;
-                filter: $svg-icon-color;
-            }
 
             input {
                 display: flex;
@@ -132,7 +175,6 @@
     }
 
     min-width: 268px;
-    max-height: 82vh;
     border: 2px solid $primary-color;
     margin-top: 10px;
     border-radius: 15px;
