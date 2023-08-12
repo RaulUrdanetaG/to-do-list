@@ -11,7 +11,7 @@ body {
     height: 100vh;
     background-color: $secondary-color;
 
-    #content{
+    #content {
         display: grid;
         height: 100%;
         grid-template-rows: 100px 1fr 40px;
@@ -21,7 +21,7 @@ body {
     }
 }
 
-.add-button{
+.add-button {
     background-color: $check-color;
     border: none;
     border-radius: 5px;
@@ -29,13 +29,13 @@ body {
     padding: 5px 10px;
     width: 80px;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
         opacity: 0.9;
     }
 }
 
-.cancel-button{
+.cancel-button {
     background-color: $cancel-color;
     border: none;
     border-radius: 5px;
@@ -43,12 +43,12 @@ body {
     padding: 5px 10px;
     width: 80px;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
         opacity: 0.9;
     }
 }
 
-.hidden{
+.hidden {
     display: none;
 }

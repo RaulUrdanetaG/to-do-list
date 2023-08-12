@@ -8,7 +8,7 @@ import n7dImg from '../assets/this_week.svg';
 import importantImg from '../assets/star-outline.svg';
 
 import { currentDate, formatDate } from './dateManager';
-import { loadProjects, createHomeProjects, addProjectBtn,  } from './UI_Projects';
+import { loadProjects, createHomeProjects, addProjectBtn, } from './UI_Projects';
 
 function createHeader() {
     const content = document.getElementById('content');

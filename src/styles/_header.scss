@@ -8,21 +8,23 @@ header {
 
     .hide-menu {
         img {
-            filter: invert(11%) sepia(10%) saturate(3001%) hue-rotate(171deg) brightness(90%) contrast(85%);;
+            filter: invert(11%) sepia(10%) saturate(3001%) hue-rotate(171deg) brightness(90%) contrast(85%);
+            ;
             width: 40px;
             margin: 0 20px;
         }
     }
-    
+
     .title-container {
         display: flex;
         align-items: center;
-        img{
+
+        img {
             width: 70px;
         }
     }
 
-    .current-date-container{
+    .current-date-container {
         margin: 0 20px;
     }
 
@@ -33,5 +35,3 @@ header {
     grid-row: 1/2;
     grid-column: 1/3;
 }
-
-

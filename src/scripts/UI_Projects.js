@@ -134,7 +134,7 @@ function showNewProjectForm() {
                                             <button class = 'add-button' id = 'add-new-project'>Add</button>
                                             <button class = 'cancel-button' id = 'cancel-new-project'>Cancel</button>
                                           </div>`;
-        sideBar.insertBefore(projectFormContainer,addProjectBtn);
+        sideBar.insertBefore(projectFormContainer, addProjectBtn);
 
         const addProjectButton = document.getElementById('add-new-project');
         const cancelNewProjectBtn = document.getElementById('cancel-new-project');
