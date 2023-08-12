@@ -120,7 +120,7 @@ function handleProjectClicks() {
 
 function showNewProjectForm() {
 
-    if (document.getElementById('new-project-form')) {
+    if (document.getElementById('new-project-form')) { // if button was already pressed dont append another form
         return;
     } else {
         const addProjectBtn = document.querySelector('.add-project-container');
@@ -138,6 +138,16 @@ function showNewProjectForm() {
 
         const addProjectButton = document.getElementById('add-new-project');
         const cancelNewProjectBtn = document.getElementById('cancel-new-project');
+
+        const projectNameInput = document.getElementById('new-project-name'); //Focus automatically to write in the input
+        projectNameInput.focus();
+
+        projectNameInput.addEventListener('keydown', e => { //Create project whe enter is pressed down
+            if (e.key === 'Enter') {
+                createProject();
+                hideNewProjectForm();
+            }
+        })
 
         addProjectButton.onclick = () => {
             createProject();
@@ -168,7 +178,7 @@ function showRenameForm(project) {
     const renameProjectForm = document.createElement('div');
     renameProjectForm.classList.add('rename-project-form');
     renameProjectForm.innerHTML = `<div class = 'new-form'>
-                                        <input type = 'text' id = 'rename-project-text' placeholder = 'Enter your project name' autocomplete = 'off' value ='${currentProjectName.innerText}'>
+                                        <input type = 'text' id = 'rename-project-text' placeholder = 'Enter your project name' autocomplete = 'off'>
                                     </div>
                                     <div class = 'new-form-buttons'>
                                         <button class = 'add-button' id = 'rename-project'>Rename</button>
@@ -180,12 +190,19 @@ function showRenameForm(project) {
     const renameBtn = project.querySelector('#rename-project');
     const cancelRename = project.querySelector('#cancel-rename-project');
 
+    newNameProject.focus();
+    newNameProject.value = currentProjectName.innerText; //Sets the cursor to the end of the word
+
+    newNameProject.addEventListener('keydown', e => { //Create project whe enter is pressed down
+        if (e.key === 'Enter') {
+            renameProject(currentProjectName, newNameProject)
+        }
+    })
+
     renameBtn.onclick = () => { renameProject(currentProjectName, newNameProject) };
     cancelRename.onclick = () => {
         project.removeChild(renameProjectForm);
         currentProjectName.classList.remove('hidden');
         projectEllipsis.classList.remove('hidden');
     };
-
-    console.log(currentProjectName.innerText);
 }
