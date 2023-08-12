@@ -1,7 +1,6 @@
 import menuOutlineSvg from '../assets/menu-outline.svg';
 import logoImg from '../assets/tick-logo.png';
 import gitHubLogo from '../assets/logo-github.svg';
-import addLogo from '../assets/duplicate-outline.svg';
 import allTaskImg from '../assets/folder-open-outline.svg';
 import todayImg from '../assets/today.svg';
 import n7dImg from '../assets/this_week.svg';
@@ -9,6 +8,7 @@ import importantImg from '../assets/star-outline.svg';
 
 import { currentDate, formatDate } from './dateManager';
 import { loadProjects, createHomeProjects, addProjectBtn, } from './UI_Projects';
+import { addTaskBtn } from './UI_Tasks';
 
 function createHeader() {
     const content = document.getElementById('content');
@@ -108,7 +108,7 @@ function taskBar() {
 
     const taskViewerTitle = document.createElement('div');
     taskViewerTitle.classList.add('task-view-title');
-    taskViewerTitle.innerHTML = `<h4>Title</h4>
+    taskViewerTitle.innerHTML = `<h4 id = 'tasks-project-title'>Welcome!</h4>
                                 <div>
                                     <p>Nearest due date:</p>
                                     <p>date</p>
@@ -119,60 +119,12 @@ function taskBar() {
     tasksContainer.id = 'tasks-container';
     taskViewer.appendChild(tasksContainer);
 
-    const taskFormContainer = document.createElement('div');
-    taskFormContainer.id = 'new-task-form';
-    taskFormContainer.classList.add('hidden');
-    taskFormContainer.innerHTML = `<div class = 'new-form'>
-                                        <label for='new-task-name'>Title:</label>
-                                        <input type = 'text' id = 'new-task-name' placeholder = 'Enter your task name' autocomplete = 'off'>
-                                        <label for='new-task-desc'>Description (optional):</label>
-                                        <textarea type = 'text' id = 'new-task-desc' placeholder = 'Enter a description for your task' autocomplete = 'off' wrap="hard"></textarea>
-                                        <label for='task-date'>Due date:</label>
-                                        <input type = 'date' id = 'task-date'>
-                                   </div>
-                                   <div class = 'new-form-buttons'><button class = 'add-button' id = 'add-new-task'>Add</button>
-                                   <button class = 'cancel-button' id = 'cancel-new-task'>Cancel</button></div>`;
-    tasksContainer.appendChild(taskFormContainer);
+    const tasks = document.createElement('div');
+    tasks.id = 'task-shower';
+    tasksContainer.appendChild(tasks);
 
     addTaskBtn();
 }
-
-
-
-function addTaskBtn() {
-    const tasksContainer = document.getElementById('tasks-container');
-
-    const addTaskContainer = document.createElement('div');
-    addTaskContainer.classList.add('add-task-container');
-    addTaskContainer.innerHTML = `<img src = '${addLogo}'><p>Add Task</p>`;
-    tasksContainer.appendChild(addTaskContainer);
-
-    const cancelNewTaskBtn = document.getElementById('cancel-new-task');
-
-
-    addTaskContainer.onclick = () => { showNewTaskForm() };
-    cancelNewTaskBtn.onclick = () => { hideNewTaskForm() };
-}
-
-function showNewTaskForm() {
-    const taskFormContainer = document.getElementById('new-task-form');
-    taskFormContainer.classList.remove('hidden');
-}
-
-function hideNewTaskForm() {
-    const taskFormContainer = document.getElementById('new-task-form');
-    const inputName = document.getElementById('new-task-name');
-    const inputDesc = document.getElementById('new-task-desc');
-    const inputDate = document.getElementById('task-date');
-    inputName.value = '';
-    inputDesc.value = '';
-    inputDate.value = '';
-    taskFormContainer.classList.add('hidden');
-}
-
-
-
-
 
 function loadHome() {
     createHeader();

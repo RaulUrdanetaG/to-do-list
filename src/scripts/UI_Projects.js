@@ -4,6 +4,8 @@ import addLogo from '../assets/duplicate-outline.svg';
 import Storage from './storage';
 import { Project } from './project';
 
+
+
 export function addProjectBtn() {
     const sideBar = document.getElementById('side-bar');
 
@@ -21,7 +23,7 @@ export function createHomeProjects(title, img) {
     const homeProjectContainer = document.createElement('div');
     homeProjectContainer.classList.add('home-project');
     homeProjectContainer.innerHTML = `<img src='${img}'>
-    <h6>${title}</h6>`;
+    <h6 class = 'project-title'>${title}</h6>`;
     sideBarContainer.appendChild(homeProjectContainer);
 }
 
@@ -68,7 +70,6 @@ function showProject(projectName) {
                                     <p class = 'delete-option'>Delete</p>
                                   </div>`;
     sideBarContainer.appendChild(projectContainer);
-
 }
 
 function clearShownProjects() {
@@ -78,6 +79,7 @@ function clearShownProjects() {
 
 function handleProjectClicks() {
     const projects = document.querySelectorAll('.project');
+    const homeProjects = document.querySelectorAll('.home-project');
 
     document.addEventListener('click', e => {       //Add event listener for whole screen
         let clickOutside = true;
@@ -88,7 +90,6 @@ function handleProjectClicks() {
             const ellipsis = project.querySelector('.option');
             const renameBtn = project.querySelector('.rename-option');
             const deleteBtn = project.querySelector('.delete-option');
-
 
             if (e.target === ellipsis || e.target === optionsContainer) {
                 clickOutside = false;
@@ -105,8 +106,6 @@ function handleProjectClicks() {
                 renameBtn.addEventListener('click', hideRenameForms());
                 renameBtn.addEventListener('click', showRenameForm(project));
             }
-
-
         });
 
         if (clickOutside) {
@@ -117,6 +116,35 @@ function handleProjectClicks() {
             })
         }
     })
+
+    projects.forEach(project => {
+
+        project.addEventListener('click', () => {
+            projects.forEach(otherProject => {
+                otherProject.classList.remove('selected');
+            })
+            homeProjects.forEach(otherHomeProject => {
+                otherHomeProject.classList.remove('selected');
+            })
+            project.classList.add('selected');
+            selectProject(project);
+        })
+
+    })
+
+    homeProjects.forEach(homeProject => {
+        homeProject.addEventListener('click', () => {
+            projects.forEach(otherProject => {
+                otherProject.classList.remove('selected');
+            })
+            homeProjects.forEach(otherHomeProject => {
+                otherHomeProject.classList.remove('selected');
+            })
+            homeProject.classList.add('selected');
+            selectProject(homeProject);
+        })
+    })
+
 }
 
 function showNewProjectForm() {
@@ -137,6 +165,7 @@ function showNewProjectForm() {
                                           </div>`;
         sideBar.insertBefore(projectFormContainer, addProjectBtn);
 
+
         const addProjectButton = document.getElementById('add-new-project');
         const cancelNewProjectBtn = document.getElementById('cancel-new-project');
 
@@ -145,14 +174,12 @@ function showNewProjectForm() {
 
         projectNameInput.addEventListener('keydown', e => { //Create project whe enter is pressed down
             if (e.key === 'Enter') {
-                createProject();
-                hideNewProjectForm();
+                checkNewProjectName();
             }
         })
 
         addProjectButton.onclick = () => {
-            createProject();
-            hideNewProjectForm();
+            checkNewProjectName();
         };
 
         cancelNewProjectBtn.onclick = () => { hideNewProjectForm() };
@@ -221,4 +248,58 @@ function hideRenameForms() {
             project.querySelector('.option').classList.remove('hidden');
         }
     })
+}
+
+function selectProject(project) {
+    project.classList.add('selected');
+
+    const projectTitle = project.querySelector('.project-title');
+    const taksProjectTitle = document.getElementById('tasks-project-title');
+    taksProjectTitle.innerText = `${projectTitle.innerText}`;
+}
+
+function checkNewProjectName() {
+
+    const newProjectForm = document.getElementById('new-project-form');
+    const newProjectFormBtns = document.querySelector('.new-form-buttons');
+    const projectNameInput = document.getElementById('new-project-name');
+
+    if (projectNameInput.value === '') {
+        if (document.getElementById('enter-name-alert')) {
+            return
+        } else if (document.getElementById('project-exists-alert')) {
+            const existingProjectAlert = document.getElementById('project-exists-alert');
+            newProjectForm.removeChild(existingProjectAlert);
+
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            newProjectForm.insertBefore(emptyNameAlert, newProjectFormBtns);
+        } else {
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            newProjectForm.insertBefore(emptyNameAlert, newProjectFormBtns);
+        }
+    } else if (Storage.getToDoList().contains(projectNameInput.value)) {
+        if (document.getElementById('project-exists-alert')) {
+            return
+        } else if (document.getElementById('enter-name-alert')) {
+            const emptyNameAlert = document.getElementById('enter-name-alert');
+            newProjectForm.removeChild(emptyNameAlert);
+
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'project-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            newProjectForm.insertBefore(existingProjectAlert, newProjectFormBtns);
+        } else {
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'project-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            newProjectForm.insertBefore(existingProjectAlert, newProjectFormBtns);
+        }
+    } else {
+        createProject();
+        hideNewProjectForm();
+    }
 }

@@ -27,7 +27,10 @@
 
     #tasks-container {
 
-        .add-task-container {
+        display: grid;
+        grid-template-rows: 1fr;
+
+        #add-task-container {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -45,7 +48,7 @@
 
             max-width: 200px;
             padding: 5px;
-            margin-top: 10px;
+            margin: 10px 0;
             border-radius: 10px;
             background-color: $primary-color;
         }

@@ -52,3 +52,7 @@ body {
 .hidden {
     display: none;
 }
+
+.selected{
+    background-color: $transparent-primary-color;
+}

@@ -16,6 +16,7 @@
     #home-projects-container {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
 
         .home-project {
             display: flex;
@@ -29,10 +30,12 @@
 
             &:hover {
                 cursor: pointer;
-                opacity: 0.7;
+                background-color: $transparent-primary-color;
             }
 
-            margin: 10px 0 10px 10px;
+            margin: 5px 0 ;
+            padding: 5px;
+            border-radius: 10px;
 
         }
     }
@@ -128,9 +131,11 @@
 
             &:hover {
                 cursor: pointer;
+                background-color: $transparent-primary-color;
             }
 
-            margin-top: 10px;
+            padding: 5px 0;
+            margin-top: 5px;
             border-radius: 7px;
         }
 

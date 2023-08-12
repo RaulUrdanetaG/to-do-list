@@ -29,4 +29,8 @@ export class ToDoList {
     removeProject = (projectName) => {
         this.projects = this.projects.filter(project => project.name !== projectName);
     }
+
+    contains(projectName) {
+        return this.projects.some((project) => project.getName() === projectName)
+    }
 }
