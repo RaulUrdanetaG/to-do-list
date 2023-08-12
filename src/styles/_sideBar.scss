@@ -4,7 +4,8 @@
 
 #side-bar {
     display: grid;
-    grid-template-rows: 60px 208px 60px 1fr 65px 49px;
+    grid-template-rows: 60px 208px 60px 1fr;
+    height: 100%;
 
     .home-title,
     .projects-title {
@@ -49,7 +50,7 @@
             filter: $svg-icon-color;
         }
 
-        margin: 0 0 10px;
+        margin: 10px 0;
         border-radius: 10px;
         background-color: $primary-color;
 
@@ -57,8 +58,6 @@
             cursor: pointer;
             opacity: 0.9;
         }
-
-        grid-row: 6/7;
     }
 
     #projects-container {
@@ -85,7 +84,12 @@
                 padding: 5px;
                 border-radius: 5px;
 
+                .rename-option {
+                    margin-bottom: 10px;
+                }
+
                 p {
+
                     &:hover {
                         cursor: pointer;
                         background-color: $selection-color;
@@ -143,10 +147,8 @@
 
             border-radius: 15px;
         }
-
-        max-height: 30vh;
         padding-right: 3px;
-        overflow: auto;
+        overflow-y: auto;
     }
 
     #new-project-form {
@@ -171,12 +173,14 @@
             gap: 10px;
         }
 
-        margin:0;
+        margin:10px 0;
     }
 
     min-width: 268px;
+    max-height: 83vh;
     border: 2px solid $primary-color;
-    margin-top: 10px;
     border-radius: 15px;
     padding: 0 5px;
+    grid-row: 2/3;
+    grid-column: 1/2;
 }

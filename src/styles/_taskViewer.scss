@@ -19,6 +19,8 @@
         }
 
         background-color: $primary-color;
+        height: 50px;
+        margin: 10px 0;
         border-radius: 10px;
         color: $font-color;
     }
@@ -73,8 +75,11 @@
         overflow: auto;
     }
 
-    padding: 10px;
-    margin: 10px 0 0 10px;
+    padding: 0 10px;
+    max-height: 83vh;
+    gap: 10px;
     border: 2px solid $primary-color;
     border-radius: 15px;
+    grid-row: 2/3;
+    grid-column: 2/3;
 }

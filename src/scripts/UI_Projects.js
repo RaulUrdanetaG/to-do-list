@@ -12,15 +12,7 @@ export function addProjectBtn() {
     addProjectContainer.innerHTML = `<img src = '${addLogo}'><p>Add Project</p>`;
     sideBar.appendChild(addProjectContainer);
 
-    const addProjectButton = document.getElementById('add-new-project');
-    const cancelNewProjectBtn = document.getElementById('cancel-new-project');
-
     addProjectContainer.onclick = () => { showNewProjectForm() };
-    addProjectButton.onclick = () => {
-        createProject();
-        hideNewProjectForm();
-    };
-    cancelNewProjectBtn.onclick = () => { hideNewProjectForm() };
 }
 
 export function createHomeProjects(title, img) {
@@ -87,7 +79,7 @@ function clearShownProjects() {
 function handleProjectClicks() {
     const projects = document.querySelectorAll('.project');
 
-    document.addEventListener('click', e => {
+    document.addEventListener('click', e => {       //Add event listener for whole screen
         let clickOutside = true;
 
         projects.forEach(project => {
@@ -127,15 +119,43 @@ function handleProjectClicks() {
 }
 
 function showNewProjectForm() {
-    const formContainer = document.getElementById('new-project-form');
-    formContainer.classList.remove('hidden');
+
+    if (document.getElementById('new-project-form')) {
+        return;
+    } else {
+        const addProjectBtn = document.querySelector('.add-project-container');
+        const sideBar = document.getElementById('side-bar');
+        const projectFormContainer = document.createElement('div');
+        projectFormContainer.id = 'new-project-form';
+        projectFormContainer.innerHTML = `<div class = 'new-form'>
+                                            <input type = 'text' id = 'new-project-name' placeholder = 'Enter your project name' autocomplete = 'off'>
+                                          </div>
+                                          <div class = 'new-form-buttons'>
+                                            <button class = 'add-button' id = 'add-new-project'>Add</button>
+                                            <button class = 'cancel-button' id = 'cancel-new-project'>Cancel</button>
+                                          </div>`;
+        sideBar.insertBefore(projectFormContainer,addProjectBtn);
+
+        const addProjectButton = document.getElementById('add-new-project');
+        const cancelNewProjectBtn = document.getElementById('cancel-new-project');
+
+        addProjectButton.onclick = () => {
+            createProject();
+            hideNewProjectForm();
+        };
+
+        cancelNewProjectBtn.onclick = () => { hideNewProjectForm() };
+
+    }
 }
 
 function hideNewProjectForm() {
+    const sideBar = document.getElementById('side-bar');
     const projectFormContainer = document.getElementById('new-project-form');
     const input = document.getElementById('new-project-name');
     input.value = '';
-    projectFormContainer.classList.add('hidden');
+
+    sideBar.removeChild(projectFormContainer);
 }
 
 function showRenameForm(project) {

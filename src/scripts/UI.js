@@ -96,19 +96,6 @@ function sideBar() {
     sideBarContainer.appendChild(projectsContainer);
 
     loadProjects();
-
-    const projectFormContainer = document.createElement('div');
-    projectFormContainer.id = 'new-project-form';
-    projectFormContainer.classList.add('hidden');
-    projectFormContainer.innerHTML = `<div class = 'new-form'>
-                                        <input type = 'text' id = 'new-project-name' placeholder = 'Enter your project name' autocomplete = 'off'>
-                                      </div>
-                                      <div class = 'new-form-buttons'>
-                                        <button class = 'add-button' id = 'add-new-project'>Add</button>
-                                        <button class = 'cancel-button' id = 'cancel-new-project'>Cancel</button>
-                                      </div>`;
-    sideBarContainer.appendChild(projectFormContainer);
-
     addProjectBtn();
 }
 
