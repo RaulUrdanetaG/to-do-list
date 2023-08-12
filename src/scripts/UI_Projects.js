@@ -102,7 +102,8 @@ function handleProjectClicks() {
             }
 
             if (e.target === renameBtn) {
-                deleteBtn.addEventListener('click', showRenameForm(project));
+                renameBtn.addEventListener('click', hideRenameForm());
+                renameBtn.addEventListener('click', showRenameForm(project));
             }
 
 
@@ -205,4 +206,23 @@ function showRenameForm(project) {
         currentProjectName.classList.remove('hidden');
         projectEllipsis.classList.remove('hidden');
     };
+}
+
+function hideRenameForm() {
+    const projects = document.querySelectorAll('.project');
+
+    projects.forEach(project => {
+        const renameProjectForm = project.querySelector('.rename-project-form');
+
+        if (renameProjectForm !== null) {
+            project.removeChild(renameProjectForm);
+
+            project.querySelector('.project-title').classList.remove('hidden');
+            project.querySelector('.option').classList.remove('hidden');
+        }
+
+        console.log(renameProjectForm);
+
+    })
+
 }
