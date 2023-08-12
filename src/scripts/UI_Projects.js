@@ -102,7 +102,7 @@ function handleProjectClicks() {
             }
 
             if (e.target === renameBtn) {
-                renameBtn.addEventListener('click', hideRenameForm());
+                renameBtn.addEventListener('click', hideRenameForms());
                 renameBtn.addEventListener('click', showRenameForm(project));
             }
 
@@ -208,7 +208,7 @@ function showRenameForm(project) {
     };
 }
 
-function hideRenameForm() {
+function hideRenameForms() {
     const projects = document.querySelectorAll('.project');
 
     projects.forEach(project => {
@@ -220,9 +220,5 @@ function hideRenameForm() {
             project.querySelector('.project-title').classList.remove('hidden');
             project.querySelector('.option').classList.remove('hidden');
         }
-
-        console.log(renameProjectForm);
-
     })
-
 }
