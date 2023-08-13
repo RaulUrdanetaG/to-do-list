@@ -3,6 +3,7 @@ import addLogo from '../assets/duplicate-outline.svg';
 
 import Storage from './storage';
 import { Project } from './project';
+import { loadTasks } from './UI_Tasks';
 
 
 
@@ -64,12 +65,20 @@ function showProject(projectName) {
     const projectContainer = document.createElement('div');
     projectContainer.classList.add('project');
     projectContainer.innerHTML = `<h6 class = 'project-title'>${projectName}</h6>
-                                  <img class = 'option' src = '${ellipsisImg}'>
-                                  <div class = 'options-container hidden'>
-                                    <p class = 'rename-option'>Rename</p>
-                                    <p class = 'delete-option'>Delete</p>
-                                  </div>`;
+    <img class = 'option' src = '${ellipsisImg}'>
+    <div class = 'options-container hidden'>
+    <p class = 'rename-option'>Rename</p>
+    <p class = 'delete-option'>Delete</p>
+    </div>`;
     sideBarContainer.appendChild(projectContainer);
+}
+
+function selectProject(project) {
+    project.classList.add('selected');
+
+    const projectTitle = project.querySelector('.project-title');
+    const taksProjectTitle = document.getElementById('tasks-project-title');
+    taksProjectTitle.innerText = `${projectTitle.innerText}`;
 }
 
 function clearShownProjects() {
@@ -128,6 +137,7 @@ function handleProjectClicks() {
             })
             project.classList.add('selected');
             selectProject(project);
+            loadTasks();
         })
 
     })
@@ -142,6 +152,7 @@ function handleProjectClicks() {
             })
             homeProject.classList.add('selected');
             selectProject(homeProject);
+            loadTasks();
         })
     })
 
@@ -204,7 +215,7 @@ function showRenameForm(project) {
     projectEllipsis.classList.add('hidden');
 
     const renameProjectForm = document.createElement('div');
-    renameProjectForm.classList.add('rename-project-form');
+    renameProjectForm.classList.add('rename-project-form'); //creates whole form
     renameProjectForm.innerHTML = `<div class = 'new-form'>
                                         <input type = 'text' id = 'rename-project-text' placeholder = 'Enter your project name' autocomplete = 'off'>
                                     </div>
@@ -250,24 +261,18 @@ function hideRenameForms() {
     })
 }
 
-function selectProject(project) {
-    project.classList.add('selected');
-
-    const projectTitle = project.querySelector('.project-title');
-    const taksProjectTitle = document.getElementById('tasks-project-title');
-    taksProjectTitle.innerText = `${projectTitle.innerText}`;
-}
 
 function checkNewProjectName() {
 
+    //gets all form elements
     const newProjectForm = document.getElementById('new-project-form');
     const newProjectFormBtns = document.querySelector('.new-form-buttons');
     const projectNameInput = document.getElementById('new-project-name');
 
-    if (projectNameInput.value === '') {
-        if (document.getElementById('enter-name-alert')) {
+    if (projectNameInput.value === '') { //When name is empty
+        if (document.getElementById('enter-name-alert')) { //if alert has aleady shown dont show another one
             return
-        } else if (document.getElementById('project-exists-alert')) {
+        } else if (document.getElementById('project-exists-alert')) { //if other alert has been shown hide it and show new alert
             const existingProjectAlert = document.getElementById('project-exists-alert');
             newProjectForm.removeChild(existingProjectAlert);
 
@@ -275,13 +280,13 @@ function checkNewProjectName() {
             emptyNameAlert.id = 'enter-name-alert';
             emptyNameAlert.innerText = 'Please enter a name';
             newProjectForm.insertBefore(emptyNameAlert, newProjectFormBtns);
-        } else {
+        } else {                                                            //Show alert when name is empty
             const emptyNameAlert = document.createElement('p');
             emptyNameAlert.id = 'enter-name-alert';
             emptyNameAlert.innerText = 'Please enter a name';
             newProjectForm.insertBefore(emptyNameAlert, newProjectFormBtns);
         }
-    } else if (Storage.getToDoList().contains(projectNameInput.value)) {
+    } else if (Storage.getToDoList().contains(projectNameInput.value)) { //when name alredy exists
         if (document.getElementById('project-exists-alert')) {
             return
         } else if (document.getElementById('enter-name-alert')) {

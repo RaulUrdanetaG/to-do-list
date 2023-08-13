@@ -7,7 +7,8 @@ function getCurrentDate() {
 }
 
 function formatDate(date) {
-    return format(date, 'dd MMM yyyy')
+    const formatedDate = new Date(date);
+    return format(formatedDate, 'dd MMM yyyy')
 }
 
 function checkIsToday(date) {
