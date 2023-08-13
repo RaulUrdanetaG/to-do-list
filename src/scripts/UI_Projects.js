@@ -29,6 +29,7 @@ export function createHomeProjects(title, img) {
 }
 
 export function loadProjects() {
+    clearShownProjects();
     const toDoList = Storage.getToDoList();
 
     toDoList.getProjects().forEach(project => {
@@ -43,20 +44,22 @@ export function loadProjects() {
 function createProject() {
     const projectName = document.getElementById('new-project-name');
     Storage.addProject(new Project(projectName.value));
-    clearShownProjects();
     loadProjects();
 }
 
 function removeProject(projectName) {
     Storage.removeProject(projectName.innerText);
-    clearShownProjects();
     loadProjects();
 }
 
 function renameProject(projectName, newProjectName) {
     Storage.renameProject(projectName.innerText, newProjectName.value);
-    clearShownProjects()
+
+    const taskProjectName = document.getElementById('tasks-project-title');
+    taskProjectName.innerText = newProjectName.value;
+
     loadProjects();
+    loadTasks();
 }
 
 function showProject(projectName) {
@@ -108,12 +111,15 @@ function handleProjectClicks() {
             }
 
             if (e.target === deleteBtn) {
-                deleteBtn.addEventListener('click', removeProject(projectName));
+                const taksProjectTitle = document.getElementById('tasks-project-title');
+                taksProjectTitle.innerText = 'All Tasks';
+                removeProject(projectName);
+                loadTasks();
             }
 
             if (e.target === renameBtn) {
-                renameBtn.addEventListener('click', hideRenameForms());
-                renameBtn.addEventListener('click', showRenameForm(project));
+                hideRenameForms();
+                showRenameForm(project);
             }
         });
 
@@ -240,9 +246,7 @@ function showRenameForm(project) {
 
     renameBtn.onclick = () => { renameProject(currentProjectName, newNameProject) };
     cancelRename.onclick = () => {
-        project.removeChild(renameProjectForm);
-        currentProjectName.classList.remove('hidden');
-        projectEllipsis.classList.remove('hidden');
+        hideRenameForms();
     };
 }
 

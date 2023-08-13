@@ -54,6 +54,12 @@
             display: flex;
             justify-content: space-between;
 
+            .edit-task-form{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+
             .left-task-info {
                 display: flex;
                 align-items: center;
@@ -75,6 +81,10 @@
             img {
                 width: 30px;
                 filter: $svg-icon-color;
+            }
+
+            .option{
+                height: 25px;
             }
 
             margin: 10px 0;

@@ -1,4 +1,4 @@
-import { isToday, isThisWeek, format, addMinutes } from 'date-fns';
+import { isToday, isThisWeek, format, addMinutes, parse } from 'date-fns';
 
 
 function getCurrentDate() {
@@ -9,6 +9,11 @@ function getCurrentDate() {
 function formatDate(date) {
     const formatedDate = new Date(date);
     return format(formatedDate, 'dd MMM yyyy')
+}
+
+function reFormatDate(date){
+    const formatedDate = parse(date, 'dd MMM yyyy', new Date());
+    return format(formatedDate, 'yyyy-MM-dd');
 }
 
 function checkIsToday(date) {
@@ -31,6 +36,7 @@ export {
     checkIsToday as checkToday,
     checkIsThisWeek as checkThisWeek,
     formatDate,
+    reFormatDate,
     adjustTimezone
 };
 

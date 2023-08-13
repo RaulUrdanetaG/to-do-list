@@ -118,8 +118,6 @@ function taskBar() {
     const tasks = document.createElement('div');
     tasks.id = 'task-shower';
     taskViewer.appendChild(tasks);
-
-    addTaskBtn();
 }
 
 function loadHome() {
