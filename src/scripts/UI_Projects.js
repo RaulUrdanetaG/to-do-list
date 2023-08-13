@@ -52,10 +52,10 @@ function removeProject(projectName) {
     loadProjects();
 }
 
-function renameProject(projectName, newProjectName) {
-    Storage.renameProject(projectName.innerText, newProjectName.value);
-
+function renameProject(newProjectName) {
     const taskProjectName = document.getElementById('tasks-project-title');
+    Storage.renameProject(taskProjectName.innerText, newProjectName.value);
+
     taskProjectName.innerText = newProjectName.value;
 
     loadProjects();
@@ -225,7 +225,7 @@ function showRenameForm(project) {
     renameProjectForm.innerHTML = `<div class = 'new-form'>
                                         <input type = 'text' id = 'rename-project-text' placeholder = 'Enter your project name' autocomplete = 'off'>
                                     </div>
-                                    <div class = 'new-form-buttons'>
+                                    <div class = 'rename-form-buttons'>
                                         <button class = 'add-button' id = 'rename-project'>Rename</button>
                                         <button class = 'cancel-button' id = 'cancel-rename-project'>Cancel</button>
                                     </div>`;
@@ -240,11 +240,11 @@ function showRenameForm(project) {
 
     newNameProject.addEventListener('keydown', e => { //Create project whe enter is pressed down
         if (e.key === 'Enter') {
-            renameProject(currentProjectName, newNameProject)
+            checkRenameProject(newNameProject);
         }
     })
 
-    renameBtn.onclick = () => { renameProject(currentProjectName, newNameProject) };
+    renameBtn.onclick = () => { checkRenameProject(newNameProject) };
     cancelRename.onclick = () => {
         hideRenameForms();
     };
@@ -310,5 +310,51 @@ function checkNewProjectName() {
     } else {
         createProject();
         hideNewProjectForm();
+    }
+}
+
+function checkRenameProject(newProjectName){
+    //gets all form elements
+    const renameProjectForm = document.querySelector('.rename-project-form');
+    const renameProjectFormBtns = document.querySelector('.rename-form-buttons');
+    const projectNameInput = document.getElementById('rename-project-text');
+
+    if (projectNameInput.value === '') { //When name is empty
+        if (document.getElementById('enter-name-alert')) { //if alert has aleady shown dont show another one
+            return
+        } else if (document.getElementById('project-exists-alert')) { //if other alert has been shown hide it and show new alert
+            const existingProjectAlert = document.getElementById('project-exists-alert');
+            renameProjectForm.removeChild(existingProjectAlert);
+
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            renameProjectForm.insertBefore(emptyNameAlert, renameProjectFormBtns);
+        } else {                                                            //Show alert when name is empty
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            renameProjectForm.insertBefore(emptyNameAlert, renameProjectFormBtns);
+        }
+    } else if (Storage.getToDoList().contains(projectNameInput.value)) { //when name alredy exists
+        if (document.getElementById('project-exists-alert')) {
+            return
+        } else if (document.getElementById('enter-name-alert')) {
+            const emptyNameAlert = document.getElementById('enter-name-alert');
+            renameProjectForm.removeChild(emptyNameAlert);
+
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'project-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            renameProjectForm.insertBefore(existingProjectAlert, renameProjectFormBtns);
+        } else {
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'project-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            renameProjectForm.insertBefore(existingProjectAlert, renameProjectFormBtns);
+        }
+    } else {
+        renameProject(newProjectName);
+        hideRenameForms();
     }
 }
