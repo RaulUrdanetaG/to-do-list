@@ -54,7 +54,7 @@
             display: flex;
             justify-content: space-between;
 
-            .edit-task-form{
+            .edit-task-form {
                 display: flex;
                 flex-direction: column;
                 flex: 1;
@@ -67,30 +67,72 @@
 
                 .completed-button {
                     border-radius: 100%;
-                    width: 20px;
-                    height: 20px;
+                    width: 35px;
+                    filter: $svg-icon-color;
                 }
             }
 
             .right-task-info {
                 display: flex;
                 align-items: center;
-                gap: 5px;
-            }
 
-            img {
-                width: 30px;
-                filter: $svg-icon-color;
-            }
+                .task-date {
+                    border-bottom: 2px solid $primary-color;
+                    margin-right: 20px;
+                }
 
-            .option{
-                height: 25px;
+                .important {
+                    filter: $svg-completed-color;
+
+                }
+
+                img {
+                    width: 30px;
+                    filter: $svg-icon-color;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .option {
+                    height: 25px;
+                }
+
+                .task-options-container {
+                    padding: 5px;
+                    border-radius: 10px;
+                    background-color: $primary-color;
+
+                    p {
+                        padding: 0 4px;
+                        &:hover {
+                            cursor: pointer;
+                            background-color: $lighter-primary-color;
+                            border-radius: 2px;
+                        }
+                    }
+                }
             }
 
             margin: 10px 0;
             padding: 10px;
             border: 2px solid $lighter-secondary-color;
             border-radius: 15px;
+        }
+
+        .completed {
+            opacity: 0.4;
+            text-decoration: line-through;
+
+            .left-task-info {
+
+                .completed-button {
+                    border-radius: 100%;
+                    width: 35px;
+                    background-color: $check-filter-color;
+                }
+            }
         }
 
         &::-webkit-scrollbar {

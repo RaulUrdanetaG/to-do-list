@@ -141,7 +141,6 @@ function handleProjectClicks() {
             homeProjects.forEach(otherHomeProject => {
                 otherHomeProject.classList.remove('selected');
             })
-            project.classList.add('selected');
             selectProject(project);
             loadTasks();
         })
@@ -156,7 +155,6 @@ function handleProjectClicks() {
             homeProjects.forEach(otherHomeProject => {
                 otherHomeProject.classList.remove('selected');
             })
-            homeProject.classList.add('selected');
             selectProject(homeProject);
             loadTasks();
         })

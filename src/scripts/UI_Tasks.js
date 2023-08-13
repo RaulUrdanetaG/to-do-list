@@ -1,6 +1,9 @@
 import addLogo from '../assets/duplicate-outline.svg';
-import importantImg from '../assets/star-outline.svg';
+import importantOutlineImg from '../assets/star-outline.svg';
+import importantImg from '../assets/star.svg';
 import ellipsisImg from '../assets/ellipsis-vertical-outline.svg';
+import notCompletedImg from '../assets/circle-outline.svg';
+import completedImg from '../assets/checkmark-circle-outline.svg';
 
 import Storage from './storage';
 import { adjustTimezone, formatDate, reFormatDate } from './dateManager';
@@ -108,9 +111,23 @@ function showTask(taskName, taskDesc, taskDate, important, completed) {
     const taskShower = document.getElementById('task-shower');
     const taskContainer = document.createElement('div');
 
+    let importantImgSelect;
+    if (important) {
+        importantImgSelect = importantImg;
+    } else {
+        importantImgSelect = importantOutlineImg;
+    }
+
+    let completedImgSelect;
+    if (completed) {
+        completedImgSelect = completedImg;
+    } else {
+        completedImgSelect = notCompletedImg;
+    }
+
     taskContainer.classList.add('task');
     taskContainer.innerHTML = `<div class = 'left-task-info'>
-                                    <button class = 'completed-button'></button>
+                                    <img class = 'completed-button' src = '${completedImgSelect}'>
                                     <div class = 'task-info'>
                                         <h5 class = 'task-name'>${taskName}</h5>
                                         <h6 class = 'task-desc'>${taskDesc}</h6>
@@ -118,22 +135,19 @@ function showTask(taskName, taskDesc, taskDate, important, completed) {
                                 </div>
                                 <div class = 'right-task-info'>
                                     <h6 class = 'task-date'>${formatDate(taskDate)}</h6>
-                                        <img class ='important-img' src='${importantImg}'>
+                                        <img class ='important-img' src='${importantImgSelect}'>
                                         <img class = 'option' src = '${ellipsisImg}'>
                                     <div class = 'task-options-container hidden'>
                                         <p class = 'edit-task'>Edit</p>
                                         <p class = 'delete-task'>Delete</p>
                                     </div>
                                 </div >`;
+
+
     const importantImgContainer = taskContainer.querySelector('.important-img');
-    // const completed = taskContainer.querySelector('')
-    // if (important) {
-    //     importantImg.classList.add('important');
-    // } else {
-    //     importantImg.classList.remove('important');
-    // }
-    // (important) ? importantImgContainer.classList.add('important') : importantImgContainer.classList.remove('important');
-    // (completed)?completedImg.classList.add('completed'):completedImg.classList.remove('completed');
+
+    (important) ? importantImgContainer.classList.add('important') : importantImgContainer.classList.remove('important');
+    (completed) ? taskContainer.classList.add('completed') : taskContainer.classList.remove('completed');
     taskShower.appendChild(taskContainer);
 }
 
@@ -234,11 +248,9 @@ function handleTaskClicks() {
             }
             if (e.target === importantBtn) {
                 toogleCompleted(projectName, taskName);
-                console.log('important');
             }
             if (e.target === completedBtn) {
                 toogleImportant(projectName, taskName);
-                console.log('completed');
             }
         });
 
