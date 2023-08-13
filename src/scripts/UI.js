@@ -103,7 +103,7 @@ function taskBar() {
     const content = document.getElementById('content');
 
     const taskViewer = document.createElement('section');
-    taskViewer.classList.add('task-view-container');
+    taskViewer.id = 'task-view-container';
     content.appendChild(taskViewer);
 
     const taskViewerTitle = document.createElement('div');
@@ -115,13 +115,9 @@ function taskBar() {
                                 </div>`
     taskViewer.appendChild(taskViewerTitle);
 
-    const tasksContainer = document.createElement('div');
-    tasksContainer.id = 'tasks-container';
-    taskViewer.appendChild(tasksContainer);
-
     const tasks = document.createElement('div');
     tasks.id = 'task-shower';
-    tasksContainer.appendChild(tasks);
+    taskViewer.appendChild(tasks);
 
     addTaskBtn();
 }
