@@ -24,6 +24,8 @@ function createHeader() {
     menuBtnImg.src = menuOutlineSvg;
     menuButton.appendChild(menuBtnImg);
 
+    window.addEventListener('resize',hideSideBar)
+
     menuBtnImg.addEventListener('click', () => {
         hideSideBar();
     })
@@ -125,15 +127,13 @@ function taskBar() {
 }
 
 function hideSideBar() {
-    const taskViewer = document.getElementById('task-view-container');
     const sideBar = document.getElementById('side-bar');
 
-    if (sideBar.classList.contains('hidden')) {
-        taskViewer.style.gridColumn = '2/3';
-    }else{
-        taskViewer.style.gridColumn = '1/3';
+    if (window.innerWidth > 845) {
+        sideBar.classList.remove('hidden');
+    } else {
+        sideBar.classList.toggle('hidden');
     }
-    sideBar.classList.toggle('hidden');
 }
 
 function loadHome() {

@@ -8,13 +8,9 @@ header {
 
     .hide-menu {
         img {
-            filter: $svg-icon-color;
+            filter: invert(11%) sepia(10%) saturate(3001%) hue-rotate(171deg) brightness(90%) contrast(85%);
             width: 40px;
             margin: 0 20px;
-
-            &:hover{
-                cursor: pointer;
-            }
         }
     }
 
