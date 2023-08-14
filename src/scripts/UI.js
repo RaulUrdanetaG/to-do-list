@@ -1,5 +1,6 @@
 import menuOutlineSvg from '../assets/menu-outline.svg';
 import logoImg from '../assets/tick-logo.png';
+import titleLogo from '../assets/tick-logo.ico';
 import gitHubLogo from '../assets/logo-github.svg';
 import allTaskImg from '../assets/folder-open-outline.svg';
 import todayImg from '../assets/today.svg';
@@ -134,6 +135,9 @@ function hideSideBar() {
 }
 
 function loadHome() {
+    const titleImg = document.querySelector('link[rel="icon"]');
+    titleImg.href = titleLogo;
+
     createHeader();
     sideBar();
     taskBar()
