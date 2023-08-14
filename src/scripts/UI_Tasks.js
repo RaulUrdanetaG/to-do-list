@@ -123,7 +123,7 @@ function clearTasks() {
 
 function hideNewTaskForm() {
     const tasksContainer = document.getElementById('task-view-container');
-    const taskFormContainer = document.getElementById('new-task-form');
+    const taskFormContainer = document.querySelector('.new-task-form');
     const inputName = document.getElementById('new-task-name');
     const inputDesc = document.getElementById('new-task-desc');
     const inputDate = document.getElementById('task-date');
@@ -257,8 +257,8 @@ function showNewTaskForm() {
         const addTaskBtn = document.getElementById('add-task-container');
         const tasksContainer = document.getElementById('task-view-container');
         const taskFormContainer = document.createElement('div');
-        taskFormContainer.id = 'new-task-form';
-        taskFormContainer.innerHTML = `<div class = 'new-form'>
+        taskFormContainer.classList.add('new-task-form');
+        taskFormContainer.innerHTML = `<div id = 'new-task-form'>
                                             <label for='new-task-name'>Title:</label>
                                             <input type = 'text' id = 'new-task-name' placeholder = 'Enter your task name' autocomplete = 'off'>
                                             <label for='new-task-desc'>Description (optional):</label>
@@ -297,14 +297,12 @@ function showNewTaskForm() {
 
         taskDateInput.addEventListener('keydown', e => {
             if (e.key === 'Enter') {
-                createTask(projectTitle, taskNameInput, taskDescInput, taskDateInput);
-                hideNewTaskForm();
+                checkNewTaskName(projectTitle);
             }
         })
 
         addNewTaskBtn.onclick = () => {
-            createTask(projectTitle, taskNameInput, taskDescInput, taskDateInput);
-            hideNewTaskForm();
+            checkNewTaskName(projectTitle);
         };
 
         cancelNewTaskBtn.onclick = () => { hideNewTaskForm() };
@@ -374,7 +372,7 @@ function showEditTaskForm(task) {
 
     const editTaskForm = document.createElement('div');
     editTaskForm.classList.add('edit-task-form'); //creates whole form
-    editTaskForm.innerHTML = `<div class = 'new-form'>
+    editTaskForm.innerHTML = `<div id = 'edit-task-form'>
                                             <label for='new-task-name'>Title:</label>
                                             <input type = 'text' id = 'edit-task-name' placeholder = 'Enter your task name' autocomplete = 'off'>
                                             <label for='new-task-desc'>Description (optional):</label>
@@ -415,12 +413,12 @@ function showEditTaskForm(task) {
 
     newTaskDate.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
-            editTask(currentProject, currentTaskName, newTaskName, newTaskDesc, newTaskDate);
+            checkEditTaskName(currentProject, currentTaskName); // aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
         }
     })
 
     editBtn.onclick = () => {
-        editTask(currentProject, currentTaskName, newTaskName, newTaskDesc, newTaskDate);
+        checkEditTaskName(currentProject, currentTaskName);
     };
 
     cancelRename.onclick = () => {
@@ -441,4 +439,107 @@ function hideEditTaskForm() {
             task.querySelector('.right-task-info').classList.remove('hidden');
         }
     })
+}
+
+function checkNewTaskName(projectTitle) {
+
+    //gets all form elements
+    const newTaskForm = document.getElementById('new-task-form');
+    const taskNameInput = document.getElementById('new-task-name');
+    const taskDescInput = document.getElementById('new-task-desc');
+    const taskDateInput = document.getElementById('task-date');
+    const newTaskBtns = document.querySelector('.new-form-buttons');
+
+    if (taskNameInput.value === '') { //When name is empty
+        if (document.getElementById('enter-name-alert')) { //if alert has aleady shown dont show another one
+            return
+        } else if (document.getElementById('task-exists-alert')) { //if other alert has been shown hide it and show new alert
+            const existingProjectAlert = document.getElementById('task-exists-alert');
+            newTaskForm.removeChild(existingProjectAlert);
+
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            taskNameInput.insertAdjacentElement('afterend', emptyNameAlert);
+        } else {                                                            //Show alert when name is empty
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            taskNameInput.insertAdjacentElement('afterend', emptyNameAlert);
+        }
+    } else if (Storage.getToDoList().getProject(projectTitle.innerText).containsTask(taskNameInput.value)) { //when name alredy exists
+        if (document.getElementById('task-exists-alert')) {
+            return
+        } else if (document.getElementById('enter-name-alert')) {
+            const emptyNameAlert = document.getElementById('enter-name-alert');
+            newTaskForm.removeChild(emptyNameAlert);
+
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'task-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            taskNameInput.insertAdjacentElement('afterend', existingProjectAlert);
+        } else {
+            const existingProjectAlert = document.createElement('p');
+            existingProjectAlert.id = 'task-exists-alert';
+            existingProjectAlert.innerText = 'This project already exists';
+            taskNameInput.insertAdjacentElement('afterend', existingProjectAlert);
+        }
+    } else if (taskDateInput.value === '' || taskDateInput.value === '1969-12-31') {
+        const emptyDateAlert = document.createElement('p');
+        emptyDateAlert.id = 'empty-edit-date-alert';
+        emptyDateAlert.innerText = 'Please enter a date';
+        taskDateInput.insertAdjacentElement('afterend', emptyDateAlert);
+    } else {
+        
+        createTask(projectTitle, taskNameInput, taskDescInput, taskDateInput);
+        hideNewTaskForm();
+    }
+}
+
+function checkEditTaskName(currentProject, currentTask) {
+
+    //gets all form elements
+    const newTaskForm = document.getElementById('edit-task-form');
+    const newTaskName = document.getElementById('edit-task-name');
+    const newTaskDesc = document.getElementById('edit-task-desc');
+    const newTaskDate = document.getElementById('edit-task-date');
+    const newTaskBtns = document.querySelector('.new-form-buttons');
+
+    if (newTaskName.value === '') { //When name is empty
+        if (document.getElementById('enter-name-alert')) { //if alert has aleady shown dont show another one
+            return
+        } else if (document.getElementById('task-exists-alert')) { //if other alert has been shown hide it and show new alert
+            const existingTaskAlert = document.getElementById('task-exists-alert');
+            newTaskForm.removeChild(existingTaskAlert);
+
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            newTaskName.insertAdjacentElement('afterend', emptyNameAlert);
+        } else {                                                            //Show alert when name is empty
+            const emptyNameAlert = document.createElement('p');
+            emptyNameAlert.id = 'enter-name-alert';
+            emptyNameAlert.innerText = 'Please enter a name';
+            newTaskName.insertAdjacentElement('afterend', emptyNameAlert);
+        }
+    } else if (Storage.getToDoList().getProject(currentProject.innerText).containsTask(newTaskName.value) && currentTask.innerText !== newTaskName.value) { //when name alredy exists
+        if (document.getElementById('task-exists-alert')) {
+            return
+        } else if (document.getElementById('enter-name-alert')) {
+            const emptyNameAlert = document.getElementById('enter-name-alert');
+            newTaskForm.removeChild(emptyNameAlert);
+
+            const existingTaskAlert = document.createElement('p');
+            existingTaskAlert.id = 'task-exists-alert';
+            existingTaskAlert.innerText = 'This project already exists';
+            newTaskName.insertAdjacentElement('afterend', existingTaskAlert);
+        } else {
+            const existingTaskAlert = document.createElement('p');
+            existingTaskAlert.id = 'task-exists-alert';
+            existingTaskAlert.innerText = 'This project already exists';
+            newTaskName.insertAdjacentElement('afterend', existingTaskAlert);
+        }
+    } else {
+        editTask(currentProject, currentTask, newTaskName, newTaskDesc, newTaskDate);
+    }
 }

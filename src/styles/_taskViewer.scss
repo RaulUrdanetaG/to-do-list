@@ -165,7 +165,8 @@
         overflow-y: auto;
     }
 
-    .new-form {
+    #new-task-form,
+    #edit-task-form {
         display: flex;
         flex-direction: column;
 

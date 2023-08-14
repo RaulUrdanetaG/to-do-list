@@ -34,6 +34,10 @@ export class Project {
         this.tasks = this.tasks.filter(task => task.name !== taskName);
     }
 
+    containsTask(taskName){
+        return this.tasks.some(task => task.name === taskName);
+    }
+
     toogleCompleteTask(taskName) {
         this.tasks.find(task => task.name === taskName).completed = !this.tasks.find(task => task.name === taskName).completed;
     }
