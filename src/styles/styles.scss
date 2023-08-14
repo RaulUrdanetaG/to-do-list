@@ -91,6 +91,18 @@ body {
         }
     }
 
+    #task-view-container{
+        #task-shower{
+            .task{
+                .right-task-info{
+                    .task-date{
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+
     #side-bar {
         grid-row: auto;
         grid-column: 1/3;
