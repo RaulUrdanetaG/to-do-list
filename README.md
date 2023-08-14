@@ -1,6 +1,6 @@
 # to-do-list
 
-<img src='../assets/finalApp.png'/>
+<img src='src/assets/finalApp.png'/>
 
 # Functionality
 
