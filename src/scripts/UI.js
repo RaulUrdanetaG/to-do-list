@@ -24,11 +24,7 @@ function createHeader() {
     menuBtnImg.src = menuOutlineSvg;
     menuButton.appendChild(menuBtnImg);
 
-    window.addEventListener('resize',hideSideBar)
-
-    menuBtnImg.addEventListener('click', () => {
-        hideSideBar();
-    })
+    window.addEventListener('resize', hideSideBar)
 
     const titleContainer = document.createElement('div');
     titleContainer.classList.add('title-container');
@@ -128,11 +124,12 @@ function taskBar() {
 
 function hideSideBar() {
     const sideBar = document.getElementById('side-bar');
+    const menuBtnImg = document.getElementById('open-menu-button');
 
     if (window.innerWidth > 845) {
         sideBar.classList.remove('hidden');
     } else {
-        sideBar.classList.toggle('hidden');
+        menuBtnImg.onclick = () => { sideBar.classList.toggle('hidden'); }
     }
 }
 
