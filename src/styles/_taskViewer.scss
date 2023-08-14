@@ -3,7 +3,7 @@
 
 #task-view-container {
     display: grid;
-    grid-template-rows: 70px 1fr;
+    grid-template-rows: 1fr 10fr;
 
     .task-view-title {
         display: flex;
@@ -19,7 +19,7 @@
         }
 
         background-color: $primary-color;
-        height: 50px;
+        height: auto;
         margin: 10px 0;
         border-radius: 10px;
         color: $font-color;

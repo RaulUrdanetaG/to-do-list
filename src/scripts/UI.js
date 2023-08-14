@@ -111,7 +111,7 @@ function taskBar() {
     taskViewerTitle.innerHTML = `<h4 id = 'tasks-project-title'>Welcome!</h4>
                                 <div>
                                     <p>Nearest due date:</p>
-                                    <p>date</p>
+                                    <p>-</p>
                                 </div>`
     taskViewer.appendChild(taskViewerTitle);
 
