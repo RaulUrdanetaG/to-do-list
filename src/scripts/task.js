@@ -1,10 +1,15 @@
 export class Task {
-    constructor(name, description, date, important, completed) {
+    constructor(projectName, name, description, date, important, completed) {
+        this.projectName = projectName;
         this.name = name;
         this.description = description;
         this.date = date;
         this.important = important;
         this.completed = completed;
+    }
+
+    setProject(newProject){
+        this.projectName = newProject;
     }
 
     setName(newName) {

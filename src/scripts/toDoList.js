@@ -33,4 +33,12 @@ export class ToDoList {
     contains(projectName) {
         return this.projects.some((project) => project.getName() === projectName)
     }
+
+    updateAllTasksProject(){
+        this.getProject('All Tasks').tasks = [];
+
+        this.projects.forEach(project =>{
+            project.getTasks().forEach(task => this.getProject('All Tasks').tasks.push(task));
+        })
+    }
 }

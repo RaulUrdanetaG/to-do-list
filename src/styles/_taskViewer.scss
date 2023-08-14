@@ -65,6 +65,12 @@
                 align-items: center;
                 gap: 10px;
 
+                .task-info {
+                    .p-name {
+                        font-weight: 700;
+                    }
+                }
+
                 .completed-button {
                     border-radius: 100%;
                     width: 35px;
@@ -106,6 +112,7 @@
 
                     p {
                         padding: 0 4px;
+
                         &:hover {
                             cursor: pointer;
                             background-color: $lighter-primary-color;

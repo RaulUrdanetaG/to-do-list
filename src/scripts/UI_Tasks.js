@@ -12,17 +12,25 @@ import { Task } from './task';
 export function loadTasks() {
     clearTasks();
     let projectSelectedTitle = document.getElementById('tasks-project-title');
-    if (projectSelectedTitle.innerText === 'All Tasks' || projectSelectedTitle.innerText === 'Today' || projectSelectedTitle.innerText === 'Next 7 Days' || projectSelectedTitle.innerText === 'Important') {
+    if (projectSelectedTitle.innerText === 'All Tasks') {
         const toDoList = Storage.getToDoList();
 
-        const projectTasks = toDoList.getProject(projectSelectedTitle.innerText).getTasks();
+        toDoList.updateAllTasksProject();
+        Storage.saveLocal(toDoList);
 
-        projectTasks.forEach(task => {
-            showTask(task.name, task.description, task.date, task.important, task.completed);
+        Storage.getToDoList().getProject('All Tasks').getTasks().forEach(task => {
+            showHomeTask(task.projectName, task.name, task.description, task.date, task.important, task.completed);
         });
         if (document.getElementById('add-task-container')) {
             removeTaskBtn();
         }
+
+    } else if (projectSelectedTitle.innerText === 'Today') {
+
+    } else if (projectSelectedTitle.innerText === 'Next 7 Days') {
+
+    } else if (projectSelectedTitle.innerText === 'Important') {
+
     } else {
         const toDoList = Storage.getToDoList();
 
@@ -80,7 +88,7 @@ function hideNewTaskForm() {
 }
 
 function createTask(projectName, taskName, taskDesc, taskDate) {
-    Storage.addTask(projectName.innerText, new Task(taskName.value, taskDesc.value, adjustTimezone(taskDate.value), false, false)); //sets important and completed to false automatically
+    Storage.addTask(projectName.innerText, new Task(projectName.innerText, taskName.value, taskDesc.value, adjustTimezone(taskDate.value), false, false)); //sets important and completed to false automatically
     loadTasks();
 }
 
@@ -151,6 +159,49 @@ function showTask(taskName, taskDesc, taskDate, important, completed) {
     taskShower.appendChild(taskContainer);
 }
 
+function showHomeTask(projectName, taskName, taskDesc, taskDate, important, completed) {
+    const taskShower = document.getElementById('task-shower');
+    const taskContainer = document.createElement('div');
+
+    let importantImgSelect;
+    if (important) {
+        importantImgSelect = importantImg;
+    } else {
+        importantImgSelect = importantOutlineImg;
+    }
+
+    let completedImgSelect;
+    if (completed) {
+        completedImgSelect = completedImg;
+    } else {
+        completedImgSelect = notCompletedImg;
+    }
+
+    taskContainer.classList.add('task');
+    taskContainer.innerHTML = `<div class = 'left-task-info'>
+                                    <img class = 'completed-button' src = '${completedImgSelect}'>
+                                    <div class = 'task-info'>
+                                        <h5 class = 'p-name'>${projectName}</h5>
+                                        <h5 class = 'task-name'>${taskName}</h5>
+                                        <h6 class = 'task-desc'>${taskDesc}</h6>
+                                    </div>
+                                </div>
+                                <div class = 'right-task-info'>
+                                    <h6 class = 'task-date'>${formatDate(taskDate)}</h6>
+                                        <img class ='important-img' src='${importantImgSelect}'>
+                                    <div class = 'task-options-container hidden'>
+                                        <p class = 'edit-task'>Edit</p>
+                                        <p class = 'delete-task'>Delete</p>
+                                    </div>
+                                </div >`;
+
+
+    const importantImgContainer = taskContainer.querySelector('.important-img');
+
+    (important) ? importantImgContainer.classList.add('important') : importantImgContainer.classList.remove('important');
+    (completed) ? taskContainer.classList.add('completed') : taskContainer.classList.remove('completed');
+    taskShower.appendChild(taskContainer);
+}
 
 function showNewTaskForm() {
     if (document.getElementById('new-task-form')) {
