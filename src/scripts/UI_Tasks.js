@@ -97,40 +97,9 @@ export function loadTasks() {
     handleTaskClicks();
 }
 
-function addTaskBtn() {
-    const tasksContainer = document.getElementById('task-view-container');
-
-    const addTaskContainer = document.createElement('div');
-    addTaskContainer.id = 'add-task-container';
-    addTaskContainer.innerHTML = `<img src = '${addLogo}'><p>Add Task</p>`;
-    tasksContainer.appendChild(addTaskContainer);
-
-
-    addTaskContainer.onclick = () => { showNewTaskForm() };
-}
-
-function removeTaskBtn() {
-    const taskBtn = document.getElementById('add-task-container');
-    const taskViewContainer = document.getElementById('task-view-container');
-
-    taskViewContainer.removeChild(taskBtn);
-}
-
 function clearTasks() {
     const taskShower = document.getElementById('task-shower');
     taskShower.innerHTML = '';
-}
-
-function hideNewTaskForm() {
-    const tasksContainer = document.getElementById('task-view-container');
-    const taskFormContainer = document.querySelector('.new-task-form');
-    const inputName = document.getElementById('new-task-name');
-    const inputDesc = document.getElementById('new-task-desc');
-    const inputDate = document.getElementById('task-date');
-    inputName.value = '';
-    inputDesc.value = '';
-    inputDate.value = '';
-    tasksContainer.removeChild(taskFormContainer);
 }
 
 function createTask(projectName, taskName, taskDesc, taskDate) {
@@ -159,6 +128,25 @@ function toogleCompleted(projectName, taskName) {
 function toogleImportant(projectName, taskName) {
     Storage.toogleCompleteTask(projectName.innerText, taskName.innerText);
     loadTasks();
+}
+
+function addTaskBtn() {
+    const tasksContainer = document.getElementById('task-view-container');
+
+    const addTaskContainer = document.createElement('div');
+    addTaskContainer.id = 'add-task-container';
+    addTaskContainer.innerHTML = `<img src = '${addLogo}'><p>Add Task</p>`;
+    tasksContainer.appendChild(addTaskContainer);
+
+
+    addTaskContainer.onclick = () => { showNewTaskForm() };
+}
+
+function removeTaskBtn() {
+    const taskBtn = document.getElementById('add-task-container');
+    const taskViewContainer = document.getElementById('task-view-container');
+
+    taskViewContainer.removeChild(taskBtn);
 }
 
 function showTask(taskName, taskDesc, taskDate, important, completed) {
@@ -309,54 +297,16 @@ function showNewTaskForm() {
     }
 }
 
-function handleTaskClicks() {
-    const tasks = document.querySelectorAll('.task');
-    const tasksContainer = document.getElementById('task-shower')
-    const projectName = document.getElementById('tasks-project-title');
-
-    tasksContainer.addEventListener('click', e => {       //Add event listener for whole screen
-        let clickOutside = true;
-
-        tasks.forEach(task => {
-            const optionsContainer = task.querySelector('.task-options-container');
-            const taskName = task.querySelector('.task-name');
-            const importantBtn = task.querySelector('.important-img');
-            const completedBtn = task.querySelector('.completed-button');
-            const ellipsis = task.querySelector('.option');
-            const editBtn = task.querySelector('.edit-task');
-            const deleteBtn = task.querySelector('.delete-task');
-
-            if (e.target === ellipsis || e.target === optionsContainer) {
-                clickOutside = false;
-                optionsContainer.classList.remove('hidden');
-            } else {
-                optionsContainer.classList.add('hidden');
-            }
-
-            if (e.target === deleteBtn) {
-                removeTask(projectName, taskName);
-            }
-
-            if (e.target === editBtn) {
-                hideEditTaskForm(); //hides all task edits 
-                showEditTaskForm(task); //opens selected task edit
-            }
-            if (e.target === importantBtn) {
-                toogleCompleted(projectName, taskName);
-            }
-            if (e.target === completedBtn) {
-                toogleImportant(projectName, taskName);
-            }
-        });
-
-        if (clickOutside) {
-            const allOptionsContainer = document.querySelectorAll('.task-options-container');
-
-            allOptionsContainer.forEach(optionContainer => {
-                optionContainer.classList.add('hidden');
-            })
-        }
-    })
+function hideNewTaskForm() {
+    const tasksContainer = document.getElementById('task-view-container');
+    const taskFormContainer = document.querySelector('.new-task-form');
+    const inputName = document.getElementById('new-task-name');
+    const inputDesc = document.getElementById('new-task-desc');
+    const inputDate = document.getElementById('task-date');
+    inputName.value = '';
+    inputDesc.value = '';
+    inputDate.value = '';
+    tasksContainer.removeChild(taskFormContainer);
 }
 
 function showEditTaskForm(task) {
@@ -413,7 +363,7 @@ function showEditTaskForm(task) {
 
     newTaskDate.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
-            checkEditTaskName(currentProject, currentTaskName); // aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+            checkEditTaskName(currentProject, currentTaskName);
         }
     })
 
@@ -542,4 +492,54 @@ function checkEditTaskName(currentProject, currentTask) {
     } else {
         editTask(currentProject, currentTask, newTaskName, newTaskDesc, newTaskDate);
     }
+}
+
+function handleTaskClicks() {
+    const tasks = document.querySelectorAll('.task');
+    const tasksContainer = document.getElementById('task-shower')
+    const projectName = document.getElementById('tasks-project-title');
+
+    tasksContainer.addEventListener('click', e => {       //Add event listener for whole screen
+        let clickOutside = true;
+
+        tasks.forEach(task => {
+            const optionsContainer = task.querySelector('.task-options-container');
+            const taskName = task.querySelector('.task-name');
+            const importantBtn = task.querySelector('.important-img');
+            const completedBtn = task.querySelector('.completed-button');
+            const ellipsis = task.querySelector('.option');
+            const editBtn = task.querySelector('.edit-task');
+            const deleteBtn = task.querySelector('.delete-task');
+
+            if (e.target === ellipsis || e.target === optionsContainer) {
+                clickOutside = false;
+                optionsContainer.classList.remove('hidden');
+            } else {
+                optionsContainer.classList.add('hidden');
+            }
+
+            if (e.target === deleteBtn) {
+                removeTask(projectName, taskName);
+            }
+
+            if (e.target === editBtn) {
+                hideEditTaskForm(); //hides all task edits 
+                showEditTaskForm(task); //opens selected task edit
+            }
+            if (e.target === importantBtn) {
+                toogleCompleted(projectName, taskName);
+            }
+            if (e.target === completedBtn) {
+                toogleImportant(projectName, taskName);
+            }
+        });
+
+        if (clickOutside) {
+            const allOptionsContainer = document.querySelectorAll('.task-options-container');
+
+            allOptionsContainer.forEach(optionContainer => {
+                optionContainer.classList.add('hidden');
+            })
+        }
+    })
 }

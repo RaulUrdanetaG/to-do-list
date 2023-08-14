@@ -53,21 +53,6 @@ function createHeader() {
     currentDateContainer.appendChild(currentDateText);
 };
 
-function createFooter() {
-    const content = document.getElementById('content');
-
-    const footer = document.createElement('footer');
-    content.appendChild(footer);
-
-
-    const websiteInfo = document.createElement('div');
-    websiteInfo.classList.add('creator-info');
-    websiteInfo.innerHTML = `<h6><strong>Made by </strong></h6>
-                            <a href="https://github.com/RaulUrdanetaG" target="_blank"><img src="${gitHubLogo}" alt="Github logo"></a>
-                            <h6><a href="https://github.com/RaulUrdanetaG" target="_blank"><strong>Raul Urdaneta</strong></a></h6>`;
-    footer.appendChild(websiteInfo);
-}
-
 function sideBar() {
     const content = document.getElementById('content');
 
@@ -102,6 +87,17 @@ function sideBar() {
     addProjectBtn();
 }
 
+function hideSideBar() {
+    const sideBar = document.getElementById('side-bar');
+    const menuBtnImg = document.getElementById('open-menu-button');
+
+    if (window.innerWidth > 845) {
+        sideBar.classList.remove('hidden');
+    } else {
+        menuBtnImg.onclick = () => { sideBar.classList.toggle('hidden'); }
+    }
+}
+
 function taskBar() {
     const content = document.getElementById('content');
 
@@ -123,15 +119,19 @@ function taskBar() {
     taskViewer.appendChild(tasks);
 }
 
-function hideSideBar() {
-    const sideBar = document.getElementById('side-bar');
-    const menuBtnImg = document.getElementById('open-menu-button');
+function createFooter() {
+    const content = document.getElementById('content');
 
-    if (window.innerWidth > 845) {
-        sideBar.classList.remove('hidden');
-    } else {
-        menuBtnImg.onclick = () => { sideBar.classList.toggle('hidden'); }
-    }
+    const footer = document.createElement('footer');
+    content.appendChild(footer);
+
+
+    const websiteInfo = document.createElement('div');
+    websiteInfo.classList.add('creator-info');
+    websiteInfo.innerHTML = `<h6><strong>Made by </strong></h6>
+                            <a href="https://github.com/RaulUrdanetaG" target="_blank"><img src="${gitHubLogo}" alt="Github logo"></a>
+                            <h6><a href="https://github.com/RaulUrdanetaG" target="_blank"><strong>Raul Urdaneta</strong></a></h6>`;
+    footer.appendChild(websiteInfo);
 }
 
 function loadHome() {

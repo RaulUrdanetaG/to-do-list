@@ -18,16 +18,6 @@ export function addProjectBtn() {
     addProjectContainer.onclick = () => { showNewProjectForm() };
 }
 
-export function createHomeProjects(title, img) {
-    const sideBarContainer = document.getElementById('home-projects-container');
-
-    const homeProjectContainer = document.createElement('div');
-    homeProjectContainer.classList.add('home-project');
-    homeProjectContainer.innerHTML = `<img src='${img}'>
-    <h6 class = 'project-title'>${title}</h6>`;
-    sideBarContainer.appendChild(homeProjectContainer);
-}
-
 export function loadProjects() {
     clearShownProjects();
     const toDoList = Storage.getToDoList();
@@ -39,6 +29,16 @@ export function loadProjects() {
     });
 
     handleProjectClicks();
+}
+
+export function createHomeProjects(title, img) {
+    const sideBarContainer = document.getElementById('home-projects-container');
+
+    const homeProjectContainer = document.createElement('div');
+    homeProjectContainer.classList.add('home-project');
+    homeProjectContainer.innerHTML = `<img src='${img}'>
+    <h6 class = 'project-title'>${title}</h6>`;
+    sideBarContainer.appendChild(homeProjectContainer);
 }
 
 function createProject() {
@@ -87,79 +87,6 @@ function selectProject(project) {
 function clearShownProjects() {
     const projectsContainer = document.getElementById('projects-container');
     projectsContainer.innerHTML = '';
-}
-
-function handleProjectClicks() {
-    const projects = document.querySelectorAll('.project');
-    const homeProjects = document.querySelectorAll('.home-project');
-
-    document.addEventListener('click', e => {       //Add event listener for whole screen
-        let clickOutside = true;
-
-        projects.forEach(project => {
-            const projectName = project.querySelector('.project-title');
-            const optionsContainer = project.querySelector('.options-container');
-            const ellipsis = project.querySelector('.option');
-            const renameBtn = project.querySelector('.rename-option');
-            const deleteBtn = project.querySelector('.delete-option');
-
-            if (e.target === ellipsis || e.target === optionsContainer) {
-                clickOutside = false;
-                optionsContainer.classList.remove('hidden');
-            } else {
-                optionsContainer.classList.add('hidden');
-            }
-
-            if (e.target === deleteBtn) {
-                const taksProjectTitle = document.getElementById('tasks-project-title');
-                taksProjectTitle.innerText = 'All Tasks';
-                removeProject(projectName);
-                loadTasks();
-            }
-
-            if (e.target === renameBtn) {
-                hideRenameForms();
-                showRenameForm(project);
-            }
-        });
-
-        if (clickOutside) {
-            const allOptionsContainer = document.querySelectorAll('.options-container');
-
-            allOptionsContainer.forEach(optionContainer => {
-                optionContainer.classList.add('hidden');
-            })
-        }
-    })
-
-    projects.forEach(project => {
-
-        project.addEventListener('click', () => {
-            projects.forEach(otherProject => {
-                otherProject.classList.remove('selected');
-            })
-            homeProjects.forEach(otherHomeProject => {
-                otherHomeProject.classList.remove('selected');
-            })
-            selectProject(project);
-            loadTasks();
-        })
-
-    })
-
-    homeProjects.forEach(homeProject => {
-        homeProject.addEventListener('click', () => {
-            projects.forEach(otherProject => {
-                otherProject.classList.remove('selected');
-            })
-            homeProjects.forEach(otherHomeProject => {
-                otherHomeProject.classList.remove('selected');
-            })
-            selectProject(homeProject);
-            loadTasks();
-        })
-    })
-
 }
 
 function showNewProjectForm() {
@@ -263,7 +190,6 @@ function hideRenameForms() {
     })
 }
 
-
 function checkNewProjectName() {
 
     //gets all form elements
@@ -355,4 +281,77 @@ function checkRenameProject(newProjectName){
         renameProject(newProjectName);
         hideRenameForms();
     }
+}
+
+function handleProjectClicks() {
+    const projects = document.querySelectorAll('.project');
+    const homeProjects = document.querySelectorAll('.home-project');
+
+    document.addEventListener('click', e => {       //Add event listener for whole screen
+        let clickOutside = true;
+
+        projects.forEach(project => {
+            const projectName = project.querySelector('.project-title');
+            const optionsContainer = project.querySelector('.options-container');
+            const ellipsis = project.querySelector('.option');
+            const renameBtn = project.querySelector('.rename-option');
+            const deleteBtn = project.querySelector('.delete-option');
+
+            if (e.target === ellipsis || e.target === optionsContainer) {
+                clickOutside = false;
+                optionsContainer.classList.remove('hidden');
+            } else {
+                optionsContainer.classList.add('hidden');
+            }
+
+            if (e.target === deleteBtn) {
+                const taksProjectTitle = document.getElementById('tasks-project-title');
+                taksProjectTitle.innerText = 'All Tasks';
+                removeProject(projectName);
+                loadTasks();
+            }
+
+            if (e.target === renameBtn) {
+                hideRenameForms();
+                showRenameForm(project);
+            }
+        });
+
+        if (clickOutside) {
+            const allOptionsContainer = document.querySelectorAll('.options-container');
+
+            allOptionsContainer.forEach(optionContainer => {
+                optionContainer.classList.add('hidden');
+            })
+        }
+    })
+
+    projects.forEach(project => {
+
+        project.addEventListener('click', () => {
+            projects.forEach(otherProject => {
+                otherProject.classList.remove('selected');
+            })
+            homeProjects.forEach(otherHomeProject => {
+                otherHomeProject.classList.remove('selected');
+            })
+            selectProject(project);
+            loadTasks();
+        })
+
+    })
+
+    homeProjects.forEach(homeProject => {
+        homeProject.addEventListener('click', () => {
+            projects.forEach(otherProject => {
+                otherProject.classList.remove('selected');
+            })
+            homeProjects.forEach(otherHomeProject => {
+                otherHomeProject.classList.remove('selected');
+            })
+            selectProject(homeProject);
+            loadTasks();
+        })
+    })
+
 }
