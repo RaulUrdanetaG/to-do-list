@@ -8,7 +8,6 @@ import importantImg from '../assets/star-outline.svg';
 
 import { currentDate, formatDate } from './dateManager';
 import { loadProjects, createHomeProjects, addProjectBtn, } from './UI_Projects';
-import { addTaskBtn } from './UI_Tasks';
 
 function createHeader() {
     const content = document.getElementById('content');
@@ -21,8 +20,13 @@ function createHeader() {
     header.appendChild(menuButton);
 
     const menuBtnImg = document.createElement('img');
+    menuBtnImg.id = 'open-menu-button';
     menuBtnImg.src = menuOutlineSvg;
     menuButton.appendChild(menuBtnImg);
+
+    menuBtnImg.addEventListener('click', () => {
+        hideSideBar();
+    })
 
     const titleContainer = document.createElement('div');
     titleContainer.classList.add('title-container');
@@ -59,9 +63,9 @@ function createFooter() {
 
     const websiteInfo = document.createElement('div');
     websiteInfo.classList.add('creator-info');
-    websiteInfo.innerHTML = `<h6>Made by </h6>
+    websiteInfo.innerHTML = `<h6><strong>Made by </strong></h6>
                             <a href="https://github.com/RaulUrdanetaG" target="_blank"><img src="${gitHubLogo}" alt="Github logo"></a>
-                            <h6><a href="https://github.com/RaulUrdanetaG" target="_blank">Raul Urdaneta</a></h6>`;
+                            <h6><a href="https://github.com/RaulUrdanetaG" target="_blank"><strong>Raul Urdaneta</strong></a></h6>`;
     footer.appendChild(websiteInfo);
 }
 
@@ -109,15 +113,27 @@ function taskBar() {
     const taskViewerTitle = document.createElement('div');
     taskViewerTitle.classList.add('task-view-title');
     taskViewerTitle.innerHTML = `<h4 id = 'tasks-project-title'>Welcome!</h4>
-                                <div>
+                                <div id = 'neares-due-date-container'>
                                     <p>Nearest due date:</p>
-                                    <p>-</p>
+                                    <p id='nearest-date'>-</p>
                                 </div>`
     taskViewer.appendChild(taskViewerTitle);
 
     const tasks = document.createElement('div');
     tasks.id = 'task-shower';
     taskViewer.appendChild(tasks);
+}
+
+function hideSideBar() {
+    const taskViewer = document.getElementById('task-view-container');
+    const sideBar = document.getElementById('side-bar');
+
+    if (sideBar.classList.contains('hidden')) {
+        taskViewer.style.gridColumn = '2/3';
+    }else{
+        taskViewer.style.gridColumn = '1/3';
+    }
+    sideBar.classList.toggle('hidden');
 }
 
 function loadHome() {

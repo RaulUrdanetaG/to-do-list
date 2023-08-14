@@ -53,6 +53,10 @@ body {
     display: none !important;
 }
 
-.selected{
+.selected {
     background-color: $transparent-primary-color;
+}
+
+@media (max-width:845px) {
+ 
 }

@@ -23,7 +23,9 @@ export function loadTasks() {
         });
         if (document.getElementById('add-task-container')) {
             removeTaskBtn();
-        }
+        };
+        const nearestDateText = document.getElementById('nearest-date');
+        nearestDateText.innerText = `${toDoList.getNearestDate('All Tasks')}`;
 
     } else if (projectSelectedTitle.innerText === 'Today') {
 
@@ -38,6 +40,8 @@ export function loadTasks() {
         if (document.getElementById('add-task-container')) {
             removeTaskBtn();
         }
+        const nearestDateText = document.getElementById('nearest-date');
+        nearestDateText.innerText = `${toDoList.getNearestDate('Today')}`;
 
     } else if (projectSelectedTitle.innerText === 'Next 7 Days') {
 
@@ -52,6 +56,8 @@ export function loadTasks() {
         if (document.getElementById('add-task-container')) {
             removeTaskBtn();
         }
+        const nearestDateText = document.getElementById('nearest-date');
+        nearestDateText.innerText = `${toDoList.getNearestDate('Next 7 Days')}`;
 
     } else if (projectSelectedTitle.innerText === 'Important') {
 
@@ -67,6 +73,9 @@ export function loadTasks() {
             removeTaskBtn();
         }
 
+        const nearestDateText = document.getElementById('nearest-date');
+        nearestDateText.innerText = `${formatDate(toDoList.getNearestDate('Important'))}`;
+
     } else {
         const toDoList = Storage.getToDoList();
 
@@ -81,7 +90,8 @@ export function loadTasks() {
         } else {
             addTaskBtn();
         }
-
+        const nearestDateText = document.getElementById('nearest-date');
+        nearestDateText.innerText = `${toDoList.getNearestDate(`${projectSelectedTitle.innerText}`)}`;
     }
 
     handleTaskClicks();

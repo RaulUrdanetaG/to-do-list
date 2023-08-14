@@ -1,4 +1,5 @@
 import { isToday, isThisWeek } from "date-fns";
+import { sortAscDates, formatDate } from "./dateManager";
 import { Project } from "./project";
 
 export class ToDoList {
@@ -85,5 +86,19 @@ export class ToDoList {
                 });
             }
         })
+    }
+
+    getNearestDate(projectName) {
+        let dates = [];
+        if (this.getProject(projectName).getTasks().length == 0) { //check if it has no tasks
+            return ['-']
+        } else {
+            this.getProject(projectName).getTasks().forEach(task => {
+                if (task.completed) { } else {                       //if task is completed dont count it
+                    dates.push(new Date(task.date));
+                }
+            })
+            return formatDate(sortAscDates(dates)[0]);
+        }
     }
 }

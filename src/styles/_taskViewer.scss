@@ -10,6 +10,12 @@
         align-items: center;
         justify-content: space-between;
 
+        #neares-due-date-container{
+            p{
+                font-weight: 700;
+            }
+            margin-right: 20px;
+        }
         h4 {
             margin-left: 10px;
         }
@@ -190,5 +196,4 @@
     border: 2px solid $primary-color;
     border-radius: 15px;
     grid-row: 2/3;
-    grid-column: 2/3;
 }
