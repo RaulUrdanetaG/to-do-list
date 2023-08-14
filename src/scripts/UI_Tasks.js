@@ -27,9 +27,45 @@ export function loadTasks() {
 
     } else if (projectSelectedTitle.innerText === 'Today') {
 
+        const toDoList = Storage.getToDoList();
+
+        toDoList.updateTodayTasks();
+        Storage.saveLocal(toDoList);
+
+        Storage.getToDoList().getProject('Today').getTasks().forEach(task => {
+            showHomeTask(task.projectName, task.name, task.description, task.date, task.important, task.completed);
+        });
+        if (document.getElementById('add-task-container')) {
+            removeTaskBtn();
+        }
+
     } else if (projectSelectedTitle.innerText === 'Next 7 Days') {
 
+        const toDoList = Storage.getToDoList();
+
+        toDoList.updateNextWeekTasks();
+        Storage.saveLocal(toDoList);
+
+        Storage.getToDoList().getProject('Next 7 Days').getTasks().forEach(task => {
+            showHomeTask(task.projectName, task.name, task.description, task.date, task.important, task.completed);
+        });
+        if (document.getElementById('add-task-container')) {
+            removeTaskBtn();
+        }
+
     } else if (projectSelectedTitle.innerText === 'Important') {
+
+        const toDoList = Storage.getToDoList();
+
+        toDoList.updateImportantTasks();
+        Storage.saveLocal(toDoList);
+
+        Storage.getToDoList().getProject('Important').getTasks().forEach(task => {
+            showHomeTask(task.projectName, task.name, task.description, task.date, task.important, task.completed);
+        });
+        if (document.getElementById('add-task-container')) {
+            removeTaskBtn();
+        }
 
     } else {
         const toDoList = Storage.getToDoList();

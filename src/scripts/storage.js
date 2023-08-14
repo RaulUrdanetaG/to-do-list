@@ -31,7 +31,7 @@ export default class Storage {
 
     static renameProject(projectName, newName) {
         const toDoList = Storage.getToDoList();
-        toDoList.getProject(projectName).getTasks().forEach(task => task.project = newName); //sets new project name to every task.
+        toDoList.getProject(projectName).getTasks().forEach(task => task.setProject(newName)); //sets new project name to every task.
         toDoList.getProject(projectName).setName(newName);
         Storage.saveLocal(toDoList);
     }
