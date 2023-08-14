@@ -14,7 +14,7 @@
 - Able to see all important tasks.
 
 # My learnings
-- Used nested obecjts to create a storage object that contains a toDoList object that contains project objects each with many task objects.
+- Used nested objects to create a storage object that contains a toDoList object that contains project objects each with many task objects.
 - Installed and used npm custom package (date-fns) to handle date interactions, and Date objects.
 - Used storage object to manage local storage.
 - used DOM methods as insertBefore, insertAdjacentElement, focus.
