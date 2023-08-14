@@ -82,6 +82,10 @@
                     border-radius: 100%;
                     width: 35px;
                     filter: $svg-icon-color;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
             }
 
