@@ -98,7 +98,11 @@ export class ToDoList {
                     dates.push(new Date(task.date));
                 }
             })
-            return formatDate(sortAscDates(dates)[0]);
+            if (dates.length == 0) {
+                return ['-']
+            } else {
+                return formatDate(sortAscDates(dates)[0]);
+            }
         }
     }
 }
