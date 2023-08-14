@@ -34,7 +34,7 @@ export class Project {
         this.tasks = this.tasks.filter(task => task.name !== taskName);
     }
 
-    containsTask(taskName){
+    containsTask(taskName) {
         return this.tasks.some(task => task.name === taskName);
     }
 

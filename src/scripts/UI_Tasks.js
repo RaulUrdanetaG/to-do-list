@@ -440,7 +440,7 @@ function checkNewTaskName(projectTitle) {
         emptyDateAlert.innerText = 'Please enter a date';
         taskDateInput.insertAdjacentElement('afterend', emptyDateAlert);
     } else {
-        
+
         createTask(projectTitle, taskNameInput, taskDescInput, taskDateInput);
         hideNewTaskForm();
     }

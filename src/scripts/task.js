@@ -8,7 +8,7 @@ export class Task {
         this.completed = completed;
     }
 
-    setProject(newProject){
+    setProject(newProject) {
         this.projectName = newProject;
     }
 

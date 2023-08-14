@@ -68,11 +68,11 @@ function showProject(projectName) {
     const projectContainer = document.createElement('div');
     projectContainer.classList.add('project');
     projectContainer.innerHTML = `<h6 class = 'project-title'>${projectName}</h6>
-    <img class = 'option' src = '${ellipsisImg}'>
-    <div class = 'options-container hidden'>
-    <p class = 'rename-option'>Rename</p>
-    <p class = 'delete-option'>Delete</p>
-    </div>`;
+                                  <img class = 'option' src = '${ellipsisImg}'>
+                                  <div class = 'options-container hidden'>
+                                        <p class = 'rename-option'>Rename</p>
+                                        <p class = 'delete-option'>Delete</p>
+                                  </div>`;
     sideBarContainer.appendChild(projectContainer);
 }
 
@@ -237,7 +237,7 @@ function checkNewProjectName() {
     }
 }
 
-function checkRenameProject(newProjectName){
+function checkRenameProject(newProjectName) {
     //gets all form elements
     const renameProjectForm = document.querySelector('.rename-project-form');
     const renameProjectFormBtns = document.querySelector('.rename-form-buttons');
