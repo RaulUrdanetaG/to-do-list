@@ -1,26 +1,26 @@
-export class Task {
-    constructor(projectName, name, description, date, important, completed) {
-        this.projectName = projectName;
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.important = important;
-        this.completed = completed;
-    }
+export default class Task {
+  constructor(projectName, name, description, date, important, completed) {
+    this.projectName = projectName;
+    this.name = name;
+    this.description = description;
+    this.date = date;
+    this.important = important;
+    this.completed = completed;
+  }
 
-    setProject(newProject) {
-        this.projectName = newProject;
-    }
+  setProject(newProject) {
+    this.projectName = newProject;
+  }
 
-    setName(newName) {
-        this.name = newName;
-    }
+  setName(newName) {
+    this.name = newName;
+  }
 
-    setDate(newDate) {
-        this.date = newDate;
-    }
+  setDate(newDate) {
+    this.date = newDate;
+  }
 
-    setDescription(newDescription) {
-        this.description = newDescription;
-    }
+  setDescription(newDescription) {
+    this.description = newDescription;
+  }
 }

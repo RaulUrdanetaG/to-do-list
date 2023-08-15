@@ -3,202 +3,202 @@
 
 
 #side-bar {
-    display: grid;
-    grid-template-rows: 60px 208px 60px 1fr;
-    height: 100%;
+  display: grid;
+  grid-template-rows: 60px 208px 60px 1fr;
+  height: 100%;
 
-    .home-title,
-    .projects-title {
-        border-bottom: 2px solid $font-color;
+  .home-title,
+  .projects-title {
+    border-bottom: 2px solid $font-color;
+    font-weight: 700;
+    font-style: italic;
+    margin: 10px 0;
+  }
+
+  #home-projects-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .home-project {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 30px;
+        filter: $svg-icon-color;
+      }
+
+      h6 {
+        margin-left: 10px;
         font-weight: 700;
-        font-style: italic;
-        margin: 10px 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: $transparent-primary-color;
+      }
+
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 10px;
+
+    }
+  }
+
+  .add-project-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: end;
+    gap: 10px;
+    height: 30px;
+
+    img {
+      width: 20px;
+      filter: $svg-icon-color;
     }
 
-    #home-projects-container {
+    margin: 10px 0;
+    border-radius: 10px;
+    background-color: $primary-color;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.9;
+    }
+  }
+
+  #projects-container {
+
+    .project {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+
+      h6 {
+        margin-left: 10px;
+        font-weight: 700;
+      }
+
+      img {
+        width: 20px;
+        filter: $svg-icon-color;
+      }
+
+      .options-container {
+        position: absolute;
+        gap: 5px;
+        top: -15px;
+        right: 12px;
+        padding: 5px;
+        border-radius: 5px;
+
+        .rename-option {
+          margin-bottom: 10px;
+        }
+
+        p {
+
+          &:hover {
+            cursor: pointer;
+            background-color: $selection-color;
+            border-radius: 5px;
+          }
+        }
+
+        background-color: $lighter-secondary-color;
+      }
+
+      .rename-project-form {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-
-        .home-project {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            img {
-                width: 30px;
-                filter: $svg-icon-color;
-            }
-
-            h6 {
-                margin-left: 10px;
-                font-weight: 700;
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: $transparent-primary-color;
-            }
-
-            margin: 5px 0;
-            padding: 5px;
-            border-radius: 10px;
-
-        }
-    }
-
-    .add-project-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-self: end;
-        gap: 10px;
-        height: 30px;
-
-        img {
-            width: 20px;
-            filter: $svg-icon-color;
-        }
-
-        margin: 10px 0;
-        border-radius: 10px;
-        background-color: $primary-color;
-
-        &:hover {
-            cursor: pointer;
-            opacity: 0.9;
-        }
-    }
-
-    #projects-container {
-
-        .project {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-
-            h6 {
-                margin-left: 10px;
-                font-weight: 700;
-            }
-
-            img {
-                width: 20px;
-                filter: $svg-icon-color;
-            }
-
-            .options-container {
-                position: absolute;
-                gap: 5px;
-                top: -15px;
-                right: 12px;
-                padding: 5px;
-                border-radius: 5px;
-
-                .rename-option {
-                    margin-bottom: 10px;
-                }
-
-                p {
-
-                    &:hover {
-                        cursor: pointer;
-                        background-color: $selection-color;
-                        border-radius: 5px;
-                    }
-                }
-
-                background-color: $lighter-secondary-color;
-            }
-
-            .rename-project-form {
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-
-                .new-form {
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-
-                    input {
-                        display: flex;
-                        flex: 1;
-                        font-size: 16px;
-                        margin: 5px 10px;
-                    }
-
-                }
-
-                .rename-form-buttons {
-                    display: flex;
-                    justify-content: center;
-                    gap: 10px;
-                }
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: $transparent-primary-color;
-            }
-
-            padding: 5px 0;
-            margin-top: 5px;
-            border-radius: 7px;
-        }
-
-
-
-        &::-webkit-scrollbar {
-            background-color: $secondary-color;
-            width: 3px;
-            margin-left: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $transparent-primary-color;
-
-            border-radius: 15px;
-        }
-
-        padding: 10px 3px 10px 0;
-        overflow-y: auto;
-    }
-
-    #new-project-form {
+        flex: 1;
 
         .new-form {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          input {
             display: flex;
-            align-items: center;
-            gap: 5px;
-
-            input {
-                display: flex;
-                flex: 1;
-                font-size: 16px;
-            }
-
+            flex: 1;
+            font-size: 16px;
             margin: 5px 10px;
+          }
+
         }
 
-        .new-form-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        .rename-form-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
         }
+      }
 
-        margin:10px 0 0;
+      &:hover {
+        cursor: pointer;
+        background-color: $transparent-primary-color;
+      }
+
+      padding: 5px 0;
+      margin-top: 5px;
+      border-radius: 7px;
     }
 
-    #project-exists-alert,
-    #enter-name-alert {
-        margin: 0 0 5px 10px;
+
+
+    &::-webkit-scrollbar {
+      background-color: $secondary-color;
+      width: 3px;
+      margin-left: 10px;
     }
 
-    min-width: 268px;
-    max-height: 83vh;
-    border: 2px solid $primary-color;
-    border-radius: 15px;
-    padding: 0 5px;
-    grid-row: 2/3;
+    &::-webkit-scrollbar-thumb {
+      background-color: $transparent-primary-color;
+
+      border-radius: 15px;
+    }
+
+    padding: 10px 3px 10px 0;
+    overflow-y: auto;
+  }
+
+  #new-project-form {
+
+    .new-form {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      input {
+        display: flex;
+        flex: 1;
+        font-size: 16px;
+      }
+
+      margin: 5px 10px;
+    }
+
+    .new-form-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    margin:10px 0 0;
+  }
+
+  #project-exists-alert,
+  #enter-name-alert {
+    margin: 0 0 5px 10px;
+  }
+
+  min-width: 268px;
+  max-height: 83vh;
+  border: 2px solid $primary-color;
+  border-radius: 15px;
+  padding: 0 5px;
+  grid-row: 2/3;
 }

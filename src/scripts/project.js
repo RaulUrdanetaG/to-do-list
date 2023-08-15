@@ -1,48 +1,48 @@
+/* eslint-disable max-len */
+export default class Project {
+  constructor(name) {
+    this.name = name;
+    this.tasks = [];
+  }
 
-export class Project {
-    constructor(name) {
-        this.name = name;
-        this.tasks = [];
-    }
+  setName(newName) {
+    this.name = newName;
+  }
 
-    setName(newName) {
-        this.name = newName;
-    }
+  getName() {
+    return this.name;
+  }
 
-    getName() {
-        return this.name;
-    }
+  getTask(taskName) {
+    return this.tasks.find((task) => task.name === taskName);
+  }
 
-    getTask(taskName) {
-        return this.tasks.find(task => task.name === taskName);
-    }
+  setTasks(storageTasks) {
+    this.tasks = storageTasks;
+  }
 
-    setTasks(storageTasks) {
-        this.tasks = storageTasks;
-    }
+  getTasks() {
+    return this.tasks;
+  }
 
-    getTasks() {
-        return this.tasks;
-    }
+  addTask(newTask) {
+    if (this.tasks.some((task) => task.name === newTask.name)) return;
+    this.tasks.push(newTask);
+  }
 
-    addTask(newTask) {
-        if (this.tasks.some(task => task.name === newTask.name)) return
-        this.tasks.push(newTask);
-    };
+  removeTask(taskName) {
+    this.tasks = this.tasks.filter((task) => task.name !== taskName);
+  }
 
-    removeTask(taskName) {
-        this.tasks = this.tasks.filter(task => task.name !== taskName);
-    }
+  containsTask(taskName) {
+    return this.tasks.some((task) => task.name === taskName);
+  }
 
-    containsTask(taskName) {
-        return this.tasks.some(task => task.name === taskName);
-    }
+  toogleCompleteTask(taskName) {
+    this.tasks.find((task) => task.name === taskName).completed = !this.tasks.find((task) => task.name === taskName).completed;
+  }
 
-    toogleCompleteTask(taskName) {
-        this.tasks.find(task => task.name === taskName).completed = !this.tasks.find(task => task.name === taskName).completed;
-    }
-
-    toogleImportantTask(taskName) {
-        this.tasks.find(task => task.name === taskName).important = !this.tasks.find(task => task.name === taskName).important;
-    }
+  toogleImportantTask(taskName) {
+    this.tasks.find((task) => task.name === taskName).important = !this.tasks.find((task) => task.name === taskName).important;
+  }
 }
